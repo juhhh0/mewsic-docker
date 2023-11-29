@@ -4,9 +4,9 @@ import "dotenv/config"
 const pool = mysql
   .createPool({
     host: "0.0.0.0",
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASS,
-    database: process.env.DATABASE,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASS,
+    database: "mewsic_sql",
     port: 3306,
   })
   .promise();

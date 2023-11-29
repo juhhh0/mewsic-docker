@@ -5,7 +5,6 @@ import UploadForm from "../components/UploadForm";
 import { fetch_get } from "../utils/utils";
 import TrackList from "../components/TrackList";
 import UserList from "../components/UserList.jsx";
-import GoogleIcon from "../components/GoogleIcon.jsx";
 import Playlists from "../components/Playlists/Playlists.jsx";
 
 function Home() {
