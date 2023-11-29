@@ -22,7 +22,6 @@ function Track({ track, i, playlist }) {
     current,
     playing,
     setPlaying,
-    state,
   } = useContext(PlayerContext);
 
   const { user } = useContext(UserContext);
@@ -193,7 +192,7 @@ function Track({ track, i, playlist }) {
                     icon="delete"
                   />
                 </li>
-                <li>
+                {/* <li>
                   <Button
                     label="Public"
                     disabled={loadingPublic}
@@ -204,10 +203,10 @@ function Track({ track, i, playlist }) {
                       togglePublic();
                     }}
                   />
-                </li>
+                </li> */}
               </>
             )}
-            {!isOwner && (
+            {/* {!isOwner && (
               <li>
                 <Button
                   label={liked ? "Dislike" : "Like"}
@@ -218,6 +217,11 @@ function Track({ track, i, playlist }) {
                     likeTrack();
                   }}
                 />
+              </li>
+            )} */}
+            {user && (
+              <li>
+                <Button label="Add to playlist" variant="option" icon="add" />
               </li>
             )}
           </ul>

@@ -13,7 +13,7 @@ export default function Button({
     <button
       disabled={disabled}
       type={type}
-      className={`btn ${variant} ${disabled && "disabled"}`}
+      className={`btn ${variant || ""} ${disabled ? "disabled" : ""}`}
       onClick={onClick}
     >
       {label}
