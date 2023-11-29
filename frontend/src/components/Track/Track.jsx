@@ -32,7 +32,7 @@ function Track({ track, i, playlist }) {
     }
 
     axios
-      .delete(`http://${import.meta.env.VITE_URL}:3000/api/tracks/${track._id}`, {
+      .delete(`http://${import.meta.env.VITE_URL}:3001/api/tracks/${track._id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

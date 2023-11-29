@@ -3,7 +3,7 @@ import axios from "axios";
 const fetch_get = async (endpoint, user) => {
   if (user) {
     const data = await axios(
-      `http://${import.meta.env.VITE_URL}:3000/api/` + endpoint,
+      `http://${import.meta.env.VITE_URL}:3001/api/` + endpoint,
       {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -15,7 +15,7 @@ const fetch_get = async (endpoint, user) => {
     return data;
   } else {
     const data = await axios(
-      `http://${import.meta.env.VITE_URL}:3000/api/` + endpoint
+      `http://${import.meta.env.VITE_URL}:3001/api/` + endpoint
     ).then((res) => {
       return res.data;
     });
@@ -24,9 +24,8 @@ const fetch_get = async (endpoint, user) => {
 };
 
 const fetch_post = async ({ endpoint, user, params }) => {
-  console.log(user, endpoint)
   if (user) {
-    const data = await axios({method: "post", url: `http://${import.meta.env.VITE_URL}:3000/api/` + endpoint,
+    const data = await axios({method: "post", url: `http://${import.meta.env.VITE_URL}:3001/api/` + endpoint,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -37,7 +36,7 @@ const fetch_post = async ({ endpoint, user, params }) => {
   return data;
   } else {
     const data = await axios
-      .post(`http://${import.meta.env.VITE_URL}:3000/api/` + endpoint, {
+      .post(`http://${import.meta.env.VITE_URL}:3001/api/` + endpoint, {
         ...params,
       })
       .then((res) => {

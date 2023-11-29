@@ -17,7 +17,7 @@ services:
       context: ./  # Modification du chemin du contexte
       dockerfile: ./docker/backend/Dockerfile  # Correction du chemin du Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
       - ./backend:/usr/app # Montez le répertoire du backend pour permettre les mises à jour en temps réel
       - /usr/app/node_modules # Volume anonyme pour node_modules seulement

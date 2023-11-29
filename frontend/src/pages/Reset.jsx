@@ -6,7 +6,7 @@ import ButtonLink from "../components/Button/ButtonLink";
 import Button from "../components/Button/Button";
 import { fetch_get, fetch_post } from "../utils/utils";
 
-const baseUrl = `http://${import.meta.env.VITE_URL}:3000/api/users`;
+const baseUrl = `http://${import.meta.env.VITE_URL}:3001/api/users`;
 
 function Reset() {
   const location = useLocation();

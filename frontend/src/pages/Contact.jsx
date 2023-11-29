@@ -27,7 +27,7 @@ export default function Contact() {
     form.append("message", formData.message);
 
     const res = await fetch(
-      `http://${import.meta.env.VITE_URL}:3000/api/admin/contact`,
+      `http://${import.meta.env.VITE_URL}:3001/api/admin/contact`,
       {
         method: "POST",
         body: JSON.stringify(formData),

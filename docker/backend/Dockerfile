@@ -15,7 +15,7 @@ RUN npm uninstall bcrypt
 RUN npm install bcrypt --build-from-source
 
 # Exposez le port nécessaire pour l'application backend
-EXPOSE 3000
+EXPOSE 3001
 
 # Démarrer l'application backend
 CMD ["npm", "start"]
