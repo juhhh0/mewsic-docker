@@ -33,6 +33,6 @@ services:
       context: ./  # Modification du chemin du contexte
       dockerfile: ./docker/frontend/Dockerfile  # Correction du chemin du Dockerfile
     ports:
-      - "8000:80"
+      - "8880:80"
     volumes:
       - ./frontend:/usr/app # Montez le répertoire du frontend pour permettre les mises à jour en temps réel
