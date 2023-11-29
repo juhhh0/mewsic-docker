@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import queryString from "query-string";
-import axios from "axios";
 import ButtonLink from "../components/Button/ButtonLink";
 import Button from "../components/Button/Button";
 import { fetch_get, fetch_post } from "../utils/utils";
-
-const baseUrl = `https://${import.meta.env.VITE_URL}/api/users`;
 
 function Reset() {
   const location = useLocation();

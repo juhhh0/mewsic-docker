@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import axios from "axios";
 import ButtonLink from "../components/Button/ButtonLink";
 import { fetch_get } from "../utils/utils";
-
-const baseUrl = `https://${import.meta.env.VITE_URL}/api/users`;
 
 function VerifyEmail() {
   const location = useLocation();

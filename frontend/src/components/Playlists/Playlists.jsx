@@ -15,7 +15,7 @@ export default function Playlists(){
         const title = input.current.value
 
         await fetch(
-            `https://${import.meta.env.VITE_URL}/api/playlists/new`,
+            `${import.meta.env.VITE_URL}/api/playlists/new`,
             {
               method: "POST",
               body: JSON.stringify({title: title}),

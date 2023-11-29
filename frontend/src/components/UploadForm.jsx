@@ -86,7 +86,7 @@ export default function UploadForm() {
     formData.append("cover", data.cover);
 
     const res = await fetch(
-      `https://${import.meta.env.VITE_URL}/api/tracks`,
+      `${import.meta.env.VITE_URL}/api/tracks`,
       {
         method: "POST",
         body: formData,
