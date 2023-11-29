@@ -24,7 +24,7 @@ export default function ProfileForm({ profile }) {
     formData.append("pseudo", event.target.pseudo.value);
 
     const res = await fetch(
-      `http://${import.meta.env.VITE_URL}:3001/api/users/profile/${user.id}`,
+      `https://${import.meta.env.VITE_URL}:3001/api/users/profile/${user.id}`,
       {
         method: "POST",
         body: formData,
