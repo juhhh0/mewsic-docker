@@ -1,0 +1,9 @@
+.admin_table{
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+.admin_td {
+   padding: 5px;
+   border: 1px solid #1e2630 ;
+}

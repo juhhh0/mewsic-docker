@@ -1,0 +1,80 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Button from "../components/Button/Button";
+import { fetch_post } from "../utils/utils";
+
+function Signup() {
+  const [formData, setFormData] = useState("");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [succes, setSucces] = useState(false);
+
+  const handleOnChange = ({ target }) => {
+    const { name, value } = target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    setIsLoading(true);
+    const { email, password, pseudo } = formData;
+
+    e.preventDefault();
+    setError("");
+    setMessage("");
+
+    const data = await fetch_post({
+      endpoint: "users/signup",
+      params: { email, password, pseudo },
+    });
+
+    if (!data.succes) {
+      setIsLoading(false);
+      return setError(data.error);
+    }
+    setSucces(true);
+    setMessage(data.message);
+    setIsLoading(false);
+  };
+  return (
+    <form className="container flex-column bg-grey" onSubmit={handleSubmit}>
+      <h3>Signup</h3>
+      <input
+        type="text"
+        placeholder="pseudo"
+        onChange={handleOnChange}
+        name="pseudo"
+        className="input"
+      />
+      <input
+        type="text"
+        placeholder="email"
+        onChange={handleOnChange}
+        name="email"
+        className="input"
+      />
+      <input
+        type="password"
+        placeholder="password"
+        onChange={handleOnChange}
+        name="password"
+        className="input"
+      />
+
+      <Button
+        type="submit"
+        variant={isLoading && "disabled"}
+        onClick={handleSubmit}
+        disabled={isLoading || succes}
+        label="Sign up"
+      />
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {message && <p style={{ color: "green" }}>{message}</p>}
+
+      <Link to="/login">already an account? login</Link>
+    </form>
+  );
+}
+
+export default Signup;

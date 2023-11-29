@@ -1,0 +1,42 @@
+.btn {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #1e2630;
+  width: fit-content;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.btn.black {
+  background-color: transparent;
+  border: 1px solid #1e2630;
+}
+
+.btn.mobile {
+  width: 100%;
+  margin: 2px 0;
+}
+
+.btn.disabled {
+  pointer-events: none;
+  background-color: #151c24;
+}
+
+.btn.option {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn.red_icon > span {
+  color: red;
+}
+
+.btn.red:hover {
+  background-color: rgb(119, 0, 0);
+}
+
+.btn:hover {
+  background-color: #2e3945;
+}

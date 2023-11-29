@@ -1,0 +1,93 @@
+@import "../../assets/color.css";
+
+.track {
+  padding: 20px;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    90deg,
+    rgba(68, 156, 200, 0) 0%,
+    rgba(30, 38, 48, 1) 30%,
+    rgba(30, 38, 48, 1) 70%,
+    #74808600 100%
+  );
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.track > audio {
+  margin-left: 100px;
+}
+
+.track > div:last-child {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  gap: 15px;
+}
+
+.track:hover {
+  background-color: var(--grey);
+}
+
+.playing {
+  background-color: var(--grey);
+}
+
+.spin {
+  animation: Icon-spin infinite 10s linear;
+}
+
+@keyframes Icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  left: -150px;
+  bottom: -15px;
+  background-color: var(--grey);
+  list-style: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.dropdown.solo {
+  left: -20px;
+}
+
+.dropdown.open {
+  display: flex;
+  gap: 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .cut {
+    max-width: 60vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dropdown {
+    left: -200px;
+  }
+
+  .track {
+    padding: 15px 0;
+  }
+
+  #duration {
+    display: none;
+  }
+}

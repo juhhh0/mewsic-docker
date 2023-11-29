@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  mysql-db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mewsic_sql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build:
+      context: ./  # Modification du chemin du contexte
+      dockerfile: ./docker/backend/Dockerfile  # Correction du chemin du Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/app # Montez le répertoire du backend pour permettre les mises à jour en temps réel
+      - /usr/app/node_modules # Volume anonyme pour node_modules seulement
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASS: passpass12
+
+  frontend:
+    build:
+      context: ./  # Modification du chemin du contexte
+      dockerfile: ./docker/frontend/Dockerfile  # Correction du chemin du Dockerfile
+    ports:
+      - "8880:80"
+    volumes:
+      - ./frontend:/usr/app # Montez le répertoire du frontend pour permettre les mises à jour en temps réel

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+
+    *{
+      color: rgb(217, 217, 217);
+    }
+
+            .btn {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #1e2630;
+  width: fit-content;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+      color: rgb(217, 217, 217);
+}
+
+            .btn:hover {
+  background-color: #2e3945;
+}
+
+      a{
+        color: rgb(217, 217, 217);
+        text-decoration: none;
+      }
+    .container{
+      background: #010409;
+        padding: 50px;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hey {{pseudo}}</h1>
+    <p>You can click on the link below to choose a new password</p>
+    <a class="btn"
+      href=`http://{{URL}}/reset-password?token={{token}}&id={{id}}`
+    >
+      Reset password
+    </a>
+    </div>
+  </body>
+</html>
