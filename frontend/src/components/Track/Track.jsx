@@ -6,8 +6,9 @@ import axios from "axios";
 import { UserContext } from "../../contexts/userContext.jsx";
 import Button from "../Button/Button";
 import { fetch_get, fetch_post } from "../../utils/utils";
+import PlaylistOptions from "./TrackOptions/PlaylistOptions.jsx";
 
-function Track({ track, i, playlist }) {
+function Track({ track, i, playlist, users_playlists }) {
   const [duration, setDuration] = useState(0);
   const audio = useRef(null);
   const [optOpen, setOptOpen] = useState(false);
@@ -88,7 +89,7 @@ function Track({ track, i, playlist }) {
 
   useEffect(() => {
     const closeMenu = (event) => {
-      if (!event.target.closest(".dropdown") && !event.target.closest(".opt")) {
+      if (!event.target.closest(".dropdown") && !event.target.closest(".opt") && !event.target.closest(".laylists_options_dropdown")) {
         setOptOpen(false);
         setSure(false);
       }
@@ -220,9 +221,7 @@ function Track({ track, i, playlist }) {
               </li>
             )} */}
             {user && (
-              <li>
-                <Button label="Add to playlist" variant="option" icon="add" />
-              </li>
+              <PlaylistOptions/>
             )}
           </ul>
         </div>

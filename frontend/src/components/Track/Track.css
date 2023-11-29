@@ -54,7 +54,7 @@
 .dropdown {
   display: none;
   position: absolute;
-  left: -150px;
+  left: -220px;
   bottom: -15px;
   background-color: var(--grey);
   list-style: none;
@@ -71,6 +71,36 @@
   gap: 10px;
 }
 
+.playlists_options_dropdown{
+  position: absolute;
+  border-radius: 5px;
+  width: 161px;
+  background-color: var(--slate);
+  top: -96px;
+  max-height: 108px;
+  overflow: auto;
+}
+
+.playlists_options_dropdown > li{
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.playlists_options_dropdown > li > span {
+  padding: 0;
+  visibility: hidden;
+}
+
+.playlists_options_dropdown > li:hover {
+  background-color: #2e3945;
+}
+
+.playlists_options_dropdown > li:hover > span {
+  visibility: visible;
+}
+
 @media screen and (max-width: 640px) {
   .cut {
     max-width: 60vw;
@@ -80,7 +110,7 @@
   }
 
   .dropdown {
-    left: -200px;
+    left: -254px;
   }
 
   .track {

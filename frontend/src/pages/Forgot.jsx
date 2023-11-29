@@ -14,7 +14,7 @@ function Forgot() {
     setError("");
     setMessage("");
 
-    const data = await fetch_post({endpoint: "users/forgot-password", params: email})
+    const data = await fetch_post({endpoint: "users/forgot-password", params: {email: email}})
 
     if (!data.succes) {
       return setError(data.error);

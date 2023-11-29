@@ -54,7 +54,7 @@ function Reset() {
 
     try {
       setBusy(true);
-      const data = await fetch_post({endpoint: `users/reset-password?token=${token}&id=${id}`, params: password})
+      const data = await fetch_post({endpoint: `users/reset-password?token=${token}&id=${id}`, params: {password: password}})
       setBusy(false);
 
       if (data.succes) {

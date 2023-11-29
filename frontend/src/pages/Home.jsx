@@ -45,8 +45,6 @@ function Home() {
     fetch();
   }, [state]);
 
-  console.log(users);
-
   return (
     <>
       {state.type != "all" && (
