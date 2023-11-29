@@ -372,3 +372,10 @@ ADD cover VARCHAR(255),
 ADD cover_cloudinary_id VARCHAR(255);
 
 INSERT INTO 
+
+  SELECT tracks.*, a.name AS artist_name, al.title AS album_title, al.cover AS cover_album
+  FROM tracks
+  LEFT JOIN artists a ON a._id = track.artist_id 
+  LEFT JOIN albums al ON al._id = track.album_id
+  INNER JOIN playlists_tracks ON tracks._id = playlists_tracks.track_id
+  WHERE playlists_tracks.playlist_id = 3

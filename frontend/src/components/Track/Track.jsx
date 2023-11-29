@@ -8,7 +8,7 @@ import Button from "../Button/Button";
 import { fetch_get, fetch_post } from "../../utils/utils";
 import PlaylistOptions from "./TrackOptions/PlaylistOptions.jsx";
 
-function Track({ track, i, playlist, users_playlists }) {
+function Track({ track, i, playlist, user_playlists }) {
   const [duration, setDuration] = useState(0);
   const audio = useRef(null);
   const [optOpen, setOptOpen] = useState(false);
@@ -17,6 +17,7 @@ function Track({ track, i, playlist, users_playlists }) {
   const [loadingPublic, setLoadingPublic] = useState(false);
   const [sure, setSure] = useState(false);
   const {
+    playlist: play,
     setPlaylist,
     setCurrent,
     setState,
@@ -24,6 +25,8 @@ function Track({ track, i, playlist, users_playlists }) {
     playing,
     setPlaying,
   } = useContext(PlayerContext);
+
+  const isPlaying = play[current]?._id == track._id
 
   const { user } = useContext(UserContext);
 
@@ -59,6 +62,7 @@ function Track({ track, i, playlist, users_playlists }) {
       window.location.reload();
     }
   };
+
 
   const likeTrack = async () => {
     await fetch_post({endpoint: `tracks/like/${track._id}`, user: user})
@@ -115,7 +119,7 @@ function Track({ track, i, playlist, users_playlists }) {
   const isOwner = user.id === track.owner_id;
   return (
     <article
-      className={"track " + (current === i && playing ? "playing" : "")}
+      className={"track " + (isPlaying && playing ? "playing" : "")}
       onClick={() => {
         setCurrent(i);
         setPlaylist(playlist);
@@ -130,7 +134,7 @@ function Track({ track, i, playlist, users_playlists }) {
           height: "50px",
           objectFit: "cover",
         }}
-        className={current === i && playing ? "spin" : ""}
+        className={isPlaying && playing ? "spin" : ""}
       />
       <div>
         <h4 className="cut">{track.title}</h4>
@@ -207,7 +211,7 @@ function Track({ track, i, playlist, users_playlists }) {
                 </li> */}
               </>
             )}
-            {/* {!isOwner && (
+            {!isOwner && (
               <li>
                 <Button
                   label={liked ? "Dislike" : "Like"}
@@ -219,9 +223,9 @@ function Track({ track, i, playlist, users_playlists }) {
                   }}
                 />
               </li>
-            )} */}
-            {user && (
-              <PlaylistOptions/>
+            )}
+            {user && user_playlists && (
+              <PlaylistOptions user_playlists={user_playlists} track={track._id}/>
             )}
           </ul>
         </div>

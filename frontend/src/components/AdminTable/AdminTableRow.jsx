@@ -2,7 +2,6 @@ import GoogleIcon from "../GoogleIcon";
 import AdminTableColumn from "./AdminTableColumn";
 
 export default function AdminTableRow({ data, fields }) {
-  console.log(data, fields);
 
   return (
     <tr>

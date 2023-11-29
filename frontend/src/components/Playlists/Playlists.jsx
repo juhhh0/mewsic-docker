@@ -3,10 +3,11 @@ import GoogleIcon from "../GoogleIcon";
 import "./Playlists.css";
 import { UserContext } from "../../contexts/userContext";
 import { fetch_get } from "../../utils/utils";
+import { PlayerContext } from "../../contexts/playerContext";
 
 export default function Playlists(){
     const [playlists, setPlaylists] = useState([])
-
+    const {setState} = useContext(PlayerContext)
     const {user} = useContext(UserContext)
     const input = useRef(null)
 
@@ -27,6 +28,15 @@ export default function Playlists(){
           );         
     }
 
+    const setPlayer = (event, playlist) => {
+      event.stopPropagation();
+      window.scrollTo(top);
+      setState({
+        type: "playlist",
+        query: playlist.title,
+      });
+    }
+
     useEffect(() => {
       const fetch = async () => {
         const data = await fetch_get(`playlists`, user);
@@ -35,12 +45,15 @@ export default function Playlists(){
       }
       fetch()
     }, [])
+
     return (
         <section className="container playlists">
         <h2>Playlists</h2>
         <ul className="playlists_list">
           {playlists && playlists.map((playlist) => (
-          <li className="playlists_item">{playlist.title}<span className="playlists_span">3 <GoogleIcon type="play_circle"/></span></li>
+          <li className="playlists_item" onClick={() => {
+            setPlayer(event, playlist)
+          }}>{playlist.title}<span className="playlists_span">{playlist.tracks.length} <GoogleIcon type="play_circle"/></span></li>
           ))}
         </ul>
         <div className="flex-end"><span className="playlist_new"><input ref={input} className="input transparent" placeholder="new playlist"/> <GoogleIcon type="add" onClick={handleNewPlaylist} /> </span></div>

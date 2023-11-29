@@ -9,6 +9,7 @@ import Playlists from "../components/Playlists/Playlists.jsx";
 
 function Home() {
   const [playlist, setPlaylist] = useState({});
+  const [userPlaylists, setUserPlaylists] = useState({})
   const [users, setUsers] = useState({});
   const { state, setState } = useContext(PlayerContext);
   const { user } = useContext(UserContext);
@@ -40,6 +41,13 @@ function Home() {
         setPlaylist(data.tracks);
         setUsers(data.users);
       }
+      if (state.type == "playlist") {
+        const data = await fetch_get(`playlists/${state.query}`, user);
+        setPlaylist(data);
+        setUsers({});
+      }
+      const data = await fetch_get(`playlists`, user)
+      setUserPlaylists(data)
     };
 
     fetch();
@@ -59,7 +67,7 @@ function Home() {
         <h2>{state.type == "all" ? "All" : state.query}</h2>
         {state.type == "search" && <UserList users={users} />}
         {state.type != "upload" && playlist?.length > 0 && (
-          <TrackList playlist={playlist} />
+          <TrackList playlist={playlist} user_playlists={userPlaylists} />
         )}
         {state.type == "upload" && <UploadForm />}
       </section>
