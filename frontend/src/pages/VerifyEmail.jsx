@@ -5,7 +5,7 @@ import axios from "axios";
 import ButtonLink from "../components/Button/ButtonLink";
 import { fetch_get } from "../utils/utils";
 
-const baseUrl = `https://${import.meta.env.VITE_URL}:3001/api/users`;
+const baseUrl = `https://${import.meta.env.VITE_URL}/api/users`;
 
 function VerifyEmail() {
   const location = useLocation();
