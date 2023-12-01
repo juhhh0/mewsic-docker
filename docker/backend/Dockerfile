@@ -8,7 +8,7 @@ RUN npm install -g pnpm
 RUN pnpm install
 
 RUN pnpm uninstall bcrypt
-RUN pnpm install bcrypt --build-from-source
+RUN pnpm install bcrypt
 
 EXPOSE 3001
 
