@@ -4,6 +4,7 @@ WORKDIR /usr/app
 
 COPY ./backend /usr/app
 
+RUN npm install -g pnpm
 RUN pnpm install
 
 RUN pnpm uninstall bcrypt
