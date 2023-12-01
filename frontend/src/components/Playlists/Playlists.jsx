@@ -1,15 +1,17 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import GoogleIcon from "../GoogleIcon";
 import "./Playlists.css";
 import { UserContext } from "../../contexts/userContext";
 import { fetch_get } from "../../utils/utils";
 import { PlayerContext } from "../../contexts/playerContext";
+import { AppContext } from "../../contexts/appContext";
 
 export default function Playlists(){
-    const [playlists, setPlaylists] = useState([])
     const {setState} = useContext(PlayerContext)
     const {user} = useContext(UserContext)
     const input = useRef(null)
+
+    const {userPlaylists, refetch} = useContext(AppContext)
 
     const handleNewPlaylist = async () => {
 
@@ -25,7 +27,9 @@ export default function Playlists(){
                 Authorization: `Bearer ${user.token}`,
               },
             }
-          );         
+          );     
+          refetch()
+         
     }
 
     const setPlayer = (event, playlist) => {
@@ -37,20 +41,13 @@ export default function Playlists(){
       });
     }
 
-    useEffect(() => {
-      const fetch = async () => {
-        const data = await fetch_get(`playlists`, user);
-        setPlaylists(data)
 
-      }
-      fetch()
-    }, [])
 
     return (
         <section className="container playlists">
         <h2>Playlists</h2>
         <ul className="playlists_list">
-          {playlists && playlists.map((playlist) => (
+          {userPlaylists && userPlaylists.map((playlist) => (
           <li className="playlists_item" onClick={() => {
             setPlayer(event, playlist)
           }}>{playlist.title}<span className="playlists_span">{playlist.tracks.length} <GoogleIcon type="play_circle"/></span></li>

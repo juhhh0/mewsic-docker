@@ -11,18 +11,18 @@ services:
       - "3306:3306"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    restart: always  # Ajout de l'option restart pour redémarrer toujours le conteneur
+    restart: always
 
 
   backend:
     build:
-      context: ./  # Modification du chemin du contexte
-      dockerfile: ./docker/backend/Dockerfile  # Correction du chemin du Dockerfile
+      context: ./ 
+      dockerfile: ./docker/backend/Dockerfile 
     ports:
       - "3001:3001"
     volumes:
-      - ./backend:/usr/app # Montez le répertoire du backend pour permettre les mises à jour en temps réel
-      - /usr/app/node_modules # Volume anonyme pour node_modules seulement
+      - ./backend:/usr/app 
+      - /usr/app/node_modules 
     environment:
       DATABASE_USER: root
       DATABASE: mewsic_sql

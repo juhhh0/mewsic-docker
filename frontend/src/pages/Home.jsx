@@ -6,11 +6,14 @@ import { fetch_get } from "../utils/utils";
 import TrackList from "../components/TrackList";
 import UserList from "../components/UserList.jsx";
 import Playlists from "../components/Playlists/Playlists.jsx";
+import Button from "../components/Button/Button.jsx";
+import PlaylistDeleteBtn from "../components/Playlists/PlaylistDeleteBtn.jsx";
 
 function Home() {
   const [playlist, setPlaylist] = useState({});
   const [userPlaylists, setUserPlaylists] = useState({})
   const [users, setUsers] = useState({});
+  const [currentPlaylist, setCurrentPlaylist] = useState()
   const { state, setState } = useContext(PlayerContext);
   const { user } = useContext(UserContext);
 
@@ -43,7 +46,8 @@ function Home() {
       }
       if (state.type == "playlist") {
         const data = await fetch_get(`playlists/${state.query}`, user);
-        setPlaylist(data);
+        setPlaylist(data.tracks);
+        setCurrentPlaylist(data.playlist)
         setUsers({});
       }
       const data = await fetch_get(`playlists`, user)
@@ -55,16 +59,17 @@ function Home() {
 
   return (
     <>
-      {state.type != "all" && (
+      {state.type != "all" ? (
         <span className="back_button" onClick={backToAll}>
           ← All
         </span>
-      )}
-      <Playlists/>
+      ) : <Playlists/>}
+     
       <section
         className={`container ${state.type == "upload" && "flex-column"}`}
       >
         <h2>{state.type == "all" ? "All" : state.query}</h2>
+        {state.type == "playlist" && <PlaylistDeleteBtn playlist={currentPlaylist} user={user}/>}
         {state.type == "search" && <UserList users={users} />}
         {state.type != "upload" && playlist?.length > 0 && (
           <TrackList playlist={playlist} user_playlists={userPlaylists} />

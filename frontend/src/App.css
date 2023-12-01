@@ -61,11 +61,12 @@ footer {
 }
 
 .track_list {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .container {
   border: #1e2630 1px solid;
+  position: relative;
   border-radius: 5px;
   padding: 20px 10px;
 }

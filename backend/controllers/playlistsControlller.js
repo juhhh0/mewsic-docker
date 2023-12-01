@@ -1,4 +1,4 @@
-import { createPlaylistSQL, getUserPlaylistsSQL, addTrackPlaylistSQL, getPlaylistTrackByTitleSQL } from "../utils/sql/playlistsSQL.js";
+import { createPlaylistSQL, getUserPlaylistsSQL, addTrackPlaylistSQL, getPlaylistTrackByTitleSQL, deleteTrackPlaylistSQL, getPlaylistTracksSQL, getPlaylistByTitleSQL, deleteAllPlaylistsTracksSQL, deletePlaylistSQL } from "../utils/sql/playlistsSQL.js";
 
 const createPlaylist = async (req, res) => {
     const { title } = req.body;
@@ -24,16 +24,20 @@ const getUserPlaylists = async (req, res) => {
 }
 
 const addTrackPlaylist = async (req, res) => {
-
-    console.log("hello?")
     
     const {track, playlist} = req.body
 
-    console.log(track, playlist)
-    
+    const playlistTracks = await getPlaylistTracksSQL(playlist)
+
+    const added = playlistTracks.find(objet => objet._id === track);
 
     try{
-        await addTrackPlaylistSQL(track, playlist)
+        if(added != undefined){
+            await deleteTrackPlaylistSQL(track, playlist)
+        }else{
+            await addTrackPlaylistSQL(track, playlist)
+        }
+        res.status(200).json({message: "track added to playlist"})
     }catch(error){
         res.status(500).json({error: "an error occured"})
     }
@@ -48,10 +52,25 @@ const getPlaylistTracks = async (req, res) => {
     // console.log(user, title)
 
     try{
+        const id = await getPlaylistByTitleSQL(title)
         const tracks = await getPlaylistTrackByTitleSQL(title, user)
-        return res.status(200).json(tracks)
+        return res.status(200).json({tracks: tracks, playlist: id})
     }catch(error){
         return res.status(500).json({error: "an error occured"})
+    }
+}
+
+const deletePlaylist = async (req, res) => {
+    const {id} = req.params
+
+    console.log("suprrimer plalist", id)
+    try{
+        await deleteAllPlaylistsTracksSQL(id)
+        await deletePlaylistSQL(id)
+
+        return res.status(200)
+    }catch(error){
+        return res.status(500)
     }
 }
 
@@ -59,5 +78,6 @@ export {
     createPlaylist,
     getUserPlaylists,
     addTrackPlaylist,
-    getPlaylistTracks
+    getPlaylistTracks, 
+    deletePlaylist
 }

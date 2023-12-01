@@ -34,6 +34,13 @@
   white-space: nowrap;
 }
 
+.btn.delete_playlist {
+  background-color: rgb(79, 0, 0);
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
 .btn.red_icon > span {
   color: red;
 }
@@ -44,4 +51,8 @@
 
 .btn:hover {
   background-color: #2e3945;
+}
+
+.btn.delete_playlist:hover {
+  background-color: rgb(119, 0, 0);
 }

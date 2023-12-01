@@ -26,7 +26,7 @@ function Track({ track, i, playlist, user_playlists }) {
     setPlaying,
   } = useContext(PlayerContext);
 
-  const isPlaying = play[current]?._id == track._id
+  const isPlaying = play[current]?._id == track._id;
 
   const { user } = useContext(UserContext);
 
@@ -53,19 +53,18 @@ function Track({ track, i, playlist, user_playlists }) {
 
   const togglePublic = async () => {
     setLoadingPublic(true);
-    await fetch_post({endpoint: `tracks/${track._id}`, user: user})
-    
+    await fetch_post({ endpoint: `tracks/${track._id}`, user: user });
+
     setLoadingPublic(false);
     setVisibility(!visibility);
-    
-    if(visibility){
+
+    if (visibility) {
       window.location.reload();
     }
   };
 
-
   const likeTrack = async () => {
-    await fetch_post({endpoint: `tracks/like/${track._id}`, user: user})
+    await fetch_post({ endpoint: `tracks/like/${track._id}`, user: user });
     setLiked(!liked);
 
     if (!liked) {
@@ -93,7 +92,11 @@ function Track({ track, i, playlist, user_playlists }) {
 
   useEffect(() => {
     const closeMenu = (event) => {
-      if (!event.target.closest(".dropdown") && !event.target.closest(".opt") && !event.target.closest(".laylists_options_dropdown")) {
+      if (
+        !event.target.closest(".dropdown") &&
+        !event.target.closest(".opt") &&
+        !event.target.closest(".laylists_options_dropdown")
+      ) {
         setOptOpen(false);
         setSure(false);
       }
@@ -107,7 +110,7 @@ function Track({ track, i, playlist, user_playlists }) {
   });
   useEffect(() => {
     const fetch = async () => {
-      const data = await fetch_get(`tracks/liked/${track._id}`, user)
+      const data = await fetch_get(`tracks/liked/${track._id}`, user);
       setLiked(data);
     };
 
@@ -225,7 +228,16 @@ function Track({ track, i, playlist, user_playlists }) {
               </li>
             )}
             {user && user_playlists && (
-              <PlaylistOptions user_playlists={user_playlists} track={track._id}/>
+              <li>
+                <ul className="playlists_options_dropdown">
+                  {user_playlists.length &&
+                    user_playlists.map((item, index) => (
+                      <PlaylistOptions track={track._id} key={index} item={item} />
+                    ))}
+                </ul>
+
+                <Button label="Add to playlist" variant="option" icon="add" />
+              </li>
             )}
           </ul>
         </div>

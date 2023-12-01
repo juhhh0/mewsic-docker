@@ -29,7 +29,6 @@ const getPlaylistTracksSQL = async (id) => {
 }
 
 const getPlaylistTrackByTitleSQL = async (title, user) => {
-  console.log(title)
   const [rows] = await pool.query(`
   SELECT tracks.*, a.name AS artist_name, al.title AS album_title, al.cover AS cover_album
   FROM tracks
@@ -41,6 +40,12 @@ const getPlaylistTrackByTitleSQL = async (title, user) => {
   `, [user, title])
 
   return rows;
+}
+
+const getPlaylistByTitleSQL = async (title) => {
+  const [rows] = await pool.query("SELECT _id FROM playlists WHERE title = ?", [title])
+
+  return rows[0]
 }
 
 const getPlaylistSQL = async (id) => {
@@ -68,4 +73,22 @@ const addTrackPlaylistSQL = async (track, playlist) => {
   )
 }
 
-export { getPlaylistSQL, createPlaylistSQL, getUserPlaylistsSQL, addTrackPlaylistSQL, getPlaylistTracksSQL, getPlaylistTrackByTitleSQL };
+const deleteTrackPlaylistSQL = async (track, playlist) => {
+  await pool.query(
+    "DELETE FROM playlists_tracks WHERE track_id = ? AND playlist_id = ?", [track, playlist]
+  )
+}
+
+const deleteAllPlaylistsTracksSQL = async (playlist) => {
+  await pool.query(
+    "DELETE FROM playlists_tracks WHERE playlist_id = ?", [playlist]
+  )
+}
+
+const deletePlaylistSQL = async (playlist) => {
+  await pool.query(
+    "DELETE FROM playlists WHERE _id = ?", [playlist]
+  )
+}
+
+export { deletePlaylistSQL, deleteAllPlaylistsTracksSQL, getPlaylistSQL, getPlaylistByTitleSQL, createPlaylistSQL, getUserPlaylistsSQL, addTrackPlaylistSQL, getPlaylistTracksSQL, getPlaylistTrackByTitleSQL, deleteTrackPlaylistSQL };
