@@ -72,7 +72,7 @@ function App() {
             element={!user ? <Forgot /> : <Navigate to="/" />}
           />
         </Routes>
-        <Player />
+        {user && <Player />}
       </main>
       <Footer />
     </>

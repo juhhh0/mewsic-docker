@@ -1,22 +1,15 @@
 import { useState } from "react";
-import axios from "axios"
 import Button from "../Button/Button";
+import { fetch_delete } from "../../utils/utils";
 
 export default function PlaylistDeleteBtn({playlist, user}) {
-    console.log(playlist, "hahghj")
     const [sure, setSure] = useState(false)
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (!user) {
             return;
           }
-          axios
-            .delete(`${import.meta.env.VITE_URL}/api/playlists/${playlist._id}`, {
-              headers: {
-                Authorization: `Bearer ${user.token}`,
-              },
-            })
-            .then(window.location = "/")
-            
+          await fetch_delete({endpoint: `playlists/${playlist._id}`, user: user})
+          window.location = "/"
     }
 
     return (

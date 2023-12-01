@@ -2,10 +2,9 @@ import { useState, useRef, useContext } from "react";
 import "./Track.css";
 import { useEffect } from "react";
 import { PlayerContext } from "../../contexts/playerContext.jsx";
-import axios from "axios";
 import { UserContext } from "../../contexts/userContext.jsx";
 import Button from "../Button/Button";
-import { fetch_get, fetch_post } from "../../utils/utils";
+import { fetch_delete, fetch_get, fetch_post } from "../../utils/utils";
 import PlaylistOptions from "./TrackOptions/PlaylistOptions.jsx";
 
 function Track({ track, i, playlist, user_playlists }) {
@@ -30,25 +29,13 @@ function Track({ track, i, playlist, user_playlists }) {
 
   const { user } = useContext(UserContext);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!user) {
       return;
     }
 
-    axios
-      .delete(`${import.meta.env.VITE_URL}/api/tracks/${track._id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((response) => {
-        if (response.data.statut) {
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    await fetch_delete({endpoint: `tracks/${track._id}`, user: user})
+    // window.location.reload();
   };
 
   const togglePublic = async () => {

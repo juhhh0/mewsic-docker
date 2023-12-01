@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/userContext.jsx";
-import axios from "axios";
 import { fetch_post } from "../utils.js";
 
 export const UserLogin = () => {

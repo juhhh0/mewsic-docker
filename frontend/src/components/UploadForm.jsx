@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Autocomplete } from "@mui/material";
 import { UserContext } from "../contexts/userContext.jsx";
