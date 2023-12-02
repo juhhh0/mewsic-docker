@@ -6,4 +6,4 @@ COPY ./backend /usr/app
 
 EXPOSE 3001
 
-CMD ["pnpm", "start"]
+CMD ["npm", "start"]
