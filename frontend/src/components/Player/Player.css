@@ -88,6 +88,10 @@
   flex-direction: column;
   left: 50%;
   align-items: center;
+  gap: 20px;
+  position: absolute;
+  left: 50%;
+  right: 50%;
 }
 
 .absolute {
@@ -107,7 +111,7 @@
   border-radius: 50%;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1270px) {
   .player-big {
     display: none;
   }

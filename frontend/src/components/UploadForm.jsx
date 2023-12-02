@@ -115,6 +115,7 @@ export default function UploadForm() {
       setError(null);
       setEmptyFields([]);
       setIsLoading(false);
+      refresh_after_timer()
     }
   };
 
@@ -122,6 +123,13 @@ export default function UploadForm() {
     getUserArtists();
     getUserAlbums();
   }, []);
+
+
+  const refresh_after_timer = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="flex-column">
@@ -212,8 +220,8 @@ export default function UploadForm() {
         {cover && <img style={{ width: "100px" }} src={cover} alt="" />}
       </section>
       <Button
-        variant={isLoading && "disabled"}
         type="submit"
+        loading={isLoading}
         disabled={isLoading || succes}
         onClick={handleSubmit}
         label={"Submit"}

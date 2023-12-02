@@ -106,7 +106,7 @@ function Player() {
                 </div>
               </div>
             </div>
-            <div className="player-controls" style={{ gap: "20px" }}>
+            <div className="player-controls">
               <div style={{ display: "flex", gap: "40px" }}>
                 <GoogleIcon
                   type="repeat"
