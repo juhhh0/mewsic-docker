@@ -3,8 +3,6 @@ FROM node:16.17.1-alpine3.16 as build
 WORKDIR /usr/app/frontend  
 COPY ./frontend /usr/app/frontend
 
-RUN npm install -g pnpm
-RUN pnpm install
 RUN pnpm run build
 
 
