@@ -40,8 +40,7 @@ function Login() {
       />
       <Button type="submit" disabled={isLoading} onClick={handleSubmit} variant={isLoading && "disabled"} label="Login" />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "red" }}>{message}</p>}
+      {error && <p className="error_msg">{error}</p>}
 
       <Link to="/forgot-password">forgot password</Link>
       <Link to="/signup">no account? signup</Link>

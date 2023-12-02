@@ -22,7 +22,6 @@ header {
 }
 
 .mobile_nav {
-  border: 1px solid var(--border);
   background-color: var(--grey);
   padding: 5px;
   position: absolute;

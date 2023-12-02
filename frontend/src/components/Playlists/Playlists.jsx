@@ -62,12 +62,12 @@ export default function Playlists(){
           }}>{playlist.title}<span className="playlists_span">{playlist.tracks.length} <GoogleIcon type="play_circle"/></span></li>
           ))}
           {userPlaylists.length == 0 && (
-            <h3 style={{textAlign: "center", padding: "10px"}}>no playlist yet, let's add some cookie!</h3>
+            <h3 style={{textAlign: "center", padding: "10px"}}>no playlist yet, let's add some!</h3>
           )}
         </ul>
         <div className="flex-end">
           <span className="playlist_new"><input ref={input} className="input transparent" placeholder="new playlist"/> <GoogleIcon type="add" onClick={handleNewPlaylist} /> </span>
-          {error && <p style={{color: "red"}}>{error}</p>}
+          {error && <p className="error_msg">{error}</p>}
           </div>
        
       </section>

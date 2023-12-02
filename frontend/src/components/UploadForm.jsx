@@ -226,8 +226,8 @@ export default function UploadForm() {
         onClick={handleSubmit}
         label={"Submit"}
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {succes && <p style={{ color: "green" }}>Track Uploaded !</p>}
+      {error && <p className="error_msg">{error}</p>}
+      {succes && <p className="succes_msg">Track Uploaded !</p>}
     </form>
   );
 }

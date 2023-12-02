@@ -122,7 +122,7 @@ function Reset() {
           label="Reset password"
         />
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error_msg">{error}</p>}
       </form>
     </div>
   );

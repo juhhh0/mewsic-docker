@@ -75,8 +75,8 @@ export default function Contact() {
         disabled={isLoading || succes}
         label="Contact"
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p className="error_msg">{error}</p>}
+      {message && <p className="succes_msg">{message}</p>}
     </form>
   );
 }

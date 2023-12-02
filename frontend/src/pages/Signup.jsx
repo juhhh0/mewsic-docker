@@ -69,8 +69,8 @@ function Signup() {
         label="Sign up"
       />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p className="error_msg">{error}</p>}
+      {message && <p className="succes_msg">{message}</p>}
 
       <Link to="/login">already an account? login</Link>
     </form>

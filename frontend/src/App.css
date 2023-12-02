@@ -28,7 +28,7 @@ a {
 
 body {
   background-color: var(--black);
-  color: rgb(217, 217, 217);
+  color: var(--white);
   font-family: "Kanit", sans-serif;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -66,7 +66,7 @@ footer {
 }
 
 .container {
-  border: #1e2630 1px solid;
+  border: var(--slate) 1px solid;
   position: relative;
   border-radius: 5px;
   padding: 20px 10px;
@@ -129,7 +129,7 @@ textarea{
 }
 
 input.error {
-  border: 1px solid red;
+  border: 1px solid var(--red);
 }
 
 label {
@@ -169,6 +169,14 @@ label {
   gap: 15px;
 }
 
+.error_msg{
+  color: var(--red);
+}
+
+.succes_msg{
+  color: var(--green);
+}
+
 .search_bar {
   width: 40vw;
   padding: 9px 10px 9px 40px;
@@ -184,7 +192,7 @@ label {
 }
 
 .error_span {
-  color: red;
+  color: var(--red);
   position: absolute;
   bottom: -35px;
   left: -15px;
@@ -244,10 +252,10 @@ label {
 
 .profile_input {
   background: transparent;
-  color: rgb(217, 217, 217);
+  color: var(--white);
   font-size: 16px;
   font-family: "Kanit";
-  border: 1px solid rgb(217, 217, 217);
+  border: 1px solid var(--white);
   padding: 5px;
   border-radius: 5px;
 }
@@ -261,7 +269,7 @@ p.profile_input {
 }
 
 .profile_input::placeholder {
-  color: rgb(217, 217, 217);
+  color: var(--white);
 }
 
 .promote_section {

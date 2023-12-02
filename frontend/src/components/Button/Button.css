@@ -1,7 +1,9 @@
+@import "../../assets/color.css";
+
 .btn {
   padding: 10px;
   border-radius: 5px;
-  background-color: #1e2630;
+  background-color: var(--slate);
   width: fit-content;
   cursor: pointer;
   transition: background-color 0.5s ease;
@@ -21,7 +23,7 @@
 
 .btn.black {
   background-color: transparent;
-  border: 1px solid #1e2630;
+  border: 1px solid var(--slate);
 }
 
 .btn.mobile {
@@ -43,22 +45,22 @@
 }
 
 .btn.delete_playlist {
-  background-color: rgb(79, 0, 0);
+  background-color: var(--darkred);
   position: absolute;
   right: 30px;
   top: 30px;
 }
 
 .btn.red_icon > span {
-  color: red;
+  color: var(--red);
 }
 
 .btn.red:hover {
-  background-color: rgb(119, 0, 0);
+  background-color: var(--red);
 }
 
 .btn:hover {
-  background-color: #2e3945;
+  background-color: var(--lightslate);
 }
 
 .btn > span.spinning{
@@ -75,5 +77,5 @@
 }
 
 .btn.delete_playlist:hover {
-  background-color: rgb(119, 0, 0);
+  background-color: var(--red);
 }

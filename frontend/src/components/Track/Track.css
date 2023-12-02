@@ -100,7 +100,7 @@
 }
 
 .playlists_options_dropdown > li:hover {
-  background-color: #2e3945;
+  background-color: var(--lightslate);
 }
 
 .playlists_options_dropdown > li:hover > span {

@@ -35,8 +35,8 @@ function Forgot() {
       <Button onClick={handleSubmit} label="Ask a new password" />
       <button type="submit" style={{ display: "none" }}></button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p className="error_msg">{error}</p>}
+      {message && <p className="succes_msg">{message}</p>}
 
       <Link to="/login">Log in </Link>
       <Link to="/signup">no account? signup</Link>
