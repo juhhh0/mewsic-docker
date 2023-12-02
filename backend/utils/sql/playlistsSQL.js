@@ -1,35 +1,39 @@
 import pool from "../database.js";
 
 const getUserPlaylistsSQL = async (user) => {
-  const [rows] = await pool.query(`
+  const [rows] = await pool.query(
+    `
     SELECT * FROM playlists WHERE user_id = ?
-  `, [
-    user,
-  ]);
+  `,
+    [user]
+  );
   for (let i = 0; i < rows.length; i++) {
-    const playlists_tracks = await getPlaylistTracksSQL(rows[i]._id)
-    rows[i].tracks = playlists_tracks
-    
+    const playlists_tracks = await getPlaylistTracksSQL(rows[i]._id);
+    rows[i].tracks = playlists_tracks;
   }
 
   return rows;
 };
 
 const getPlaylistTracksSQL = async (id) => {
-  const [rows] = await pool.query(`
+  const [rows] = await pool.query(
+    `
   SELECT tracks.*, a.name AS artist_name, al.title AS album_title, al.cover AS cover_album
   FROM tracks
   LEFT JOIN artists a ON a._id = tracks.artist_id 
   LEFT JOIN albums al ON al._id = tracks.album_id
   INNER JOIN playlists_tracks ON tracks._id = playlists_tracks.track_id
   WHERE playlists_tracks.playlist_id = ?
-  `, [id])
+  `,
+    [id]
+  );
 
   return rows;
-}
+};
 
 const getPlaylistTrackByTitleSQL = async (title, user) => {
-  const [rows] = await pool.query(`
+  const [rows] = await pool.query(
+    `
   SELECT tracks.*, a.name AS artist_name, al.title AS album_title, al.cover AS cover_album
   FROM tracks
   LEFT JOIN artists a ON a._id = tracks.artist_id 
@@ -37,16 +41,21 @@ const getPlaylistTrackByTitleSQL = async (title, user) => {
   INNER JOIN playlists_tracks ON tracks._id = playlists_tracks.track_id
   INNER JOIN users_tracks ON users_tracks.track_id = tracks._id AND users_tracks.user_id = ?
   INNER JOIN playlists ON playlists._id = playlists_tracks.playlist_id AND playlists.title = ?
-  `, [user, title])
+  `,
+    [user, title]
+  );
 
   return rows;
-}
+};
 
 const getPlaylistByTitleSQL = async (title, user) => {
-  const [rows] = await pool.query("SELECT _id FROM playlists WHERE title = ? AND user_id = ?", [title, user])
+  const [rows] = await pool.query(
+    "SELECT _id FROM playlists WHERE title = ? AND user_id = ?",
+    [title, user]
+  );
 
-  return rows[0]
-}
+  return rows[0];
+};
 
 const getPlaylistSQL = async (id) => {
   const [rows] = await pool.query("SELECT * FROM playlists WHERE _id = ?", [
@@ -68,27 +77,53 @@ const createPlaylistSQL = async (title, user) => {
 };
 
 const addTrackPlaylistSQL = async (track, playlist) => {
-   await pool.query(
-    "INSERT INTO playlists_tracks (track_id, playlist_id) VALUES (?, ?)", [track, playlist]
-  )
-}
+  await pool.query(
+    "INSERT INTO playlists_tracks (track_id, playlist_id) VALUES (?, ?)",
+    [track, playlist]
+  );
+};
 
 const deleteTrackPlaylistSQL = async (track, playlist) => {
   await pool.query(
-    "DELETE FROM playlists_tracks WHERE track_id = ? AND playlist_id = ?", [track, playlist]
-  )
-}
+    "DELETE FROM playlists_tracks WHERE track_id = ? AND playlist_id = ?",
+    [track, playlist]
+  );
+};
 
 const deleteAllPlaylistsTracksSQL = async (playlist) => {
-  await pool.query(
-    "DELETE FROM playlists_tracks WHERE playlist_id = ?", [playlist]
-  )
-}
+  await pool.query("DELETE FROM playlists_tracks WHERE playlist_id = ?", [
+    playlist,
+  ]);
+};
 
 const deletePlaylistSQL = async (playlist) => {
-  await pool.query(
-    "DELETE FROM playlists WHERE _id = ?", [playlist]
-  )
+  await pool.query("DELETE FROM playlists WHERE _id = ?", [playlist]);
+};
+
+const getAllPlaylistsSQL = async () => {
+  const [rows] = await pool.query("SELECT * FROM playlists")
+
+  return rows
 }
 
-export { deletePlaylistSQL, deleteAllPlaylistsTracksSQL, getPlaylistSQL, getPlaylistByTitleSQL, createPlaylistSQL, getUserPlaylistsSQL, addTrackPlaylistSQL, getPlaylistTracksSQL, getPlaylistTrackByTitleSQL, deleteTrackPlaylistSQL };
+const getAllPlaylistsTracksSQL = async () => {
+  const [rows] = await pool.query("SELECT * FROM playlists_tracks")
+
+  return rows
+}
+
+
+export {
+  getAllPlaylistsTracksSQL,
+  deletePlaylistSQL,
+  deleteAllPlaylistsTracksSQL,
+  getPlaylistSQL,
+  getPlaylistByTitleSQL,
+  createPlaylistSQL,
+  getUserPlaylistsSQL,
+  addTrackPlaylistSQL,
+  getPlaylistTracksSQL,
+  getPlaylistTrackByTitleSQL,
+  deleteTrackPlaylistSQL,
+  getAllPlaylistsSQL
+};

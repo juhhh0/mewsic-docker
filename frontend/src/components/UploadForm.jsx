@@ -164,7 +164,7 @@ export default function UploadForm() {
                     type="text"
                     {...params.inputProps}
                     className={
-                      emptyFields?.includes("artist") ? "input error" : "input"
+                       "input"
                     }
                   />
                 </div>
@@ -186,7 +186,7 @@ export default function UploadForm() {
                   type="text"
                   {...params.inputProps}
                   className={
-                    emptyFields?.includes("album") ? "input error" : "input"
+                   "input"
                   }
                 />
               </div>
@@ -202,7 +202,7 @@ export default function UploadForm() {
               type="file"
               accept="image/*"
               name="cover"
-              className={emptyFields?.includes("cover") ? "error" : "input"}
+              className={"input"}
             />
           </div>
 
@@ -213,7 +213,7 @@ export default function UploadForm() {
               type="file"
               accept="audio/*"
               name="audio"
-              className={emptyFields?.includes("audio") ? "error" : "input"}
+              className={emptyFields?.includes("audio") ? "input error" : "input"}
             />
           </div>
         </div>

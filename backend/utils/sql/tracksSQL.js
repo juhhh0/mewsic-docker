@@ -200,7 +200,18 @@ const deleteUsersTracksByTrackSQL = async (id) => {
   await pool.query("DELETE FROM users_tracks WHERE track_id = ?", [id]);
 };
 
+const adminDeleteTrackSQL = async (id) => {
+  const track = getTrackSQL(id)
+  
+  await pool.query("DELETE FROM playlists_tracks WHERE track_id = ?", [id])
+  await pool.query("DELETE FROM users_tracks WHERE track_id = ?", [id])
+  await pool.query("DELETE FROM tracks WHERE _id = ?", [id])
+
+  return track
+}
+
 export {
+  adminDeleteTrackSQL,
   likeSQL,
   dislikeSQL,
   getTracksSQL,

@@ -18,8 +18,10 @@ export const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetch = async () => {
-            const data = await fetch_get(`playlists`, user);
-            setUserPlaylists(data)
+            if(user){
+              const data = await fetch_get(`playlists`, user);
+              setUserPlaylists(data)
+            }
         
     }
     fetch()

@@ -13,6 +13,8 @@ export default function PlaylistDeleteBtn({playlist, user}) {
           )
     }
 
+    console.log(playlist)
+
     return (
         <Button
         onClick={(event) => {

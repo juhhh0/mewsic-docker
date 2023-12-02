@@ -61,7 +61,14 @@ const getAllAlbumsSQL = async () => {
   return rows
 }
 
+const adminDeleteAlbumSQL = async (id) => {
+  const album = await getAlbumSQL(id)
 
+  await pool.query("UPDATE tracks SET album_id = NULL WHERE album_id = ?", [id])
 
+  await pool.query("DELETE FROM albums WHERE _id = ?", [id])
 
-export { getAlbumSQL, createAlbumSQL, getAlbumByNameSQL, getAlbumsSQL, getAlbumIdByTrackIdSQL, deleteAlbumSQL, getAllAlbumsSQL };
+  return album
+}
+
+export { adminDeleteAlbumSQL, getAlbumSQL, createAlbumSQL, getAlbumByNameSQL, getAlbumsSQL, getAlbumIdByTrackIdSQL, deleteAlbumSQL, getAllAlbumsSQL };

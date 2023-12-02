@@ -6,7 +6,6 @@ import { fetch_get } from "../utils/utils";
 import TrackList from "../components/TrackList";
 import UserList from "../components/UserList.jsx";
 import Playlists from "../components/Playlists/Playlists.jsx";
-import Button from "../components/Button/Button.jsx";
 import PlaylistDeleteBtn from "../components/Playlists/PlaylistDeleteBtn.jsx";
 
 function Home() {

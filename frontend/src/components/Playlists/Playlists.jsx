@@ -36,10 +36,8 @@ export default function Playlists(){
 
           if(res.ok){
             refetch()
-            console.log("c'est passé")
           }else {
             setError(data.error)
-            console.log("c'est pas passé")
           }
          
     }
@@ -59,8 +57,8 @@ export default function Playlists(){
         <section className="container playlists">
         <h2>Playlists</h2>
         <ul className="playlists_list">
-          {userPlaylists && userPlaylists.map((playlist) => (
-          <li className="playlists_item" onClick={() => {
+          {userPlaylists && userPlaylists.map((playlist, i) => (
+          <li className="playlists_item" key={i} onClick={() => {
             setPlayer(event, playlist)
           }}>{playlist.title}<span className="playlists_span">{playlist.tracks.length} <GoogleIcon type="play_circle"/></span></li>
           ))}

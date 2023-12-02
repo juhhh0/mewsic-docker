@@ -3,6 +3,13 @@
     max-width: 100%;
 }
 
+.admin_table > .table_wrapper {
+    width: fit-content;
+    max-height: 600px;
+    overflow: auto;
+}
+
+
 .admin_td {
    padding: 5px;
    border: 1px solid #1e2630 ;

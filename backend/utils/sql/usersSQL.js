@@ -143,7 +143,29 @@ const getUserAvatarIdSQL = async (id) => {
   return rows[0].avatar_cloudinary_id;
 };
 
+const adminDeleteUserSQL = async (id) => {
+
+  const [rows] = await pool.query("SELECT cover_cloudinary_id, audio_cloudinary_id FROM tracks WHERE owner_id = ?", [id])
+  await pool.query(
+    `
+    DELETE FROM playlists_tracks WHERE playlist_id IN (
+      SELECT _id FROM playlists WHERE user_id = ?
+    )
+    `,
+    [id]
+  );
+
+  await pool.query("DELETE FROM playlists WHERE user_id = ?", [id]);
+
+  await pool.query("DELETE FROM users_tracks WHERE user_id = ?", [id]);
+  await pool.query("DELETE FROM tracks WHERE owner_id = ?", [id]);
+  await pool.query("DELETE FROM users WHERE _id = ?", [id]);
+
+  return rows
+};
+
 export {
+  adminDeleteUserSQL,
   searchUsersByPseudoSQL,
   createUserSQL,
   getUserAvatarIdSQL,

@@ -32,9 +32,11 @@ export default function Admin() {
       {data.tracks && <AdminTable data={data.tracks} type={"tracks"} />}
       {data.albums && <AdminTable data={data.albums} type={"albums"} />}
       {data.artists && <AdminTable data={data.artists} type={"artists"} />}
+      {data.playlists && <AdminTable data={data.playlists} type={"playlists"} />}
       {data.users_tracks && (
         <AdminTable data={data.users_tracks} type={"users_tracks"} />
       )}
+      {data.playlists_tracks && <AdminTable data={data.playlists_tracks} type={"playlists_tracks"} />}
     </section>
   );
 }

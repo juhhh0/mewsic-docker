@@ -1,12 +1,15 @@
-import { getAllAlbumsSQL } from "../utils/sql/albumsSQL.js";
-import { getAllArtistsSQL } from "../utils/sql/artistsSQL.js";
+import { adminDeleteAlbumSQL, getAllAlbumsSQL } from "../utils/sql/albumsSQL.js";
+import { adminDeleteArtistSQL, getAllArtistsSQL } from "../utils/sql/artistsSQL.js";
 import {
+  adminDeleteTrackSQL,
   getAllTracksSQL,
   getAllUsersTracksSQL,
 } from "../utils/sql/tracksSQL.js";
-import { getAllUsersSQL, getUserSQL } from "../utils/sql/usersSQL.js";
+import { adminDeleteUserSQL, getAllUsersSQL, getUserSQL } from "../utils/sql/usersSQL.js";
 import createTemplate from "../utils/utils.js";
 import mailTransport from "../utils/nodemailer.js";
+import cloudinary from "../utils/cloudinary.js";
+import { getAllPlaylistsSQL, getAllPlaylistsTracksSQL } from "../utils/sql/playlistsSQL.js";
 
 const getTables = async (req, res) => {
   const users = await getAllUsersSQL();
@@ -14,8 +17,10 @@ const getTables = async (req, res) => {
   const albums = await getAllAlbumsSQL();
   const artists = await getAllArtistsSQL();
   const users_tracks = await getAllUsersTracksSQL();
+  const playlists = await getAllPlaylistsSQL();
+  const playlists_tracks = await getAllPlaylistsTracksSQL();
 
-  return res.status(200).json({ users, tracks, albums, artists, users_tracks });
+  return res.status(200).json({ users, tracks, albums, artists, users_tracks, playlists, playlists_tracks });
 };
 
 const contactAdmin = async (req, res) => {
@@ -58,4 +63,73 @@ const contactAdmin = async (req, res) => {
   }
 };
 
-export { getTables, contactAdmin };
+const adminDeleteUser = async (req, res) => {
+  const {id} = req.params
+
+  try{
+    const mediaToDelete = await adminDeleteUserSQL(id)
+
+    for(let i = 0; i < mediaToDelete.length; i++){
+      await cloudinary.uploader.destroy(mediaToDelete[i].audio_cloudinary_id, {
+        resource_type: "video",
+      });
+      
+      if (mediaToDelete[i]?.cover_cloudinary_id) {
+        await cloudinary.uploader.destroy(mediaToDelete[i].cover_cloudinary_id);
+      }
+    }
+    return res.status(200)
+  }catch(error){
+    res.status(500)
+  }
+
+}
+
+const adminDeleteTrack = async (req, res) => {
+  const {id} = req.params
+  try{
+    const track = await adminDeleteTrackSQL(id)
+
+      await cloudinary.uploader.destroy(track.audio_cloudinary_id, {
+        resource_type: "video",
+      });
+      
+      if (track?.cover_cloudinary_id) {
+        await cloudinary.uploader.destroy(track.cover_cloudinary_id);
+      }
+
+    return res.status(200)
+  }catch(error){
+    res.status(500)
+  }
+}
+
+
+const adminDeleteAlbum = async (req, res) => {
+  const {id} = req.params
+  try{
+    const album = await adminDeleteAlbumSQL(id)
+
+    if(album.cover_cloudinary_id){
+      await cloudinary.uploader.destroy(album.cover_cloudinary_id);
+    }
+    return res.status(200)
+  }catch(error){
+    return res.status(500)
+  }
+}
+
+const adminDeleteArtist = async (req, res) => {
+  const {id} = req.params
+  try{
+    await adminDeleteArtistSQL(id)
+    return res.status(200)
+  }catch(error){
+    return res.status(500)
+  }
+}
+
+
+
+
+export { getTables, contactAdmin, adminDeleteUser, adminDeleteTrack, adminDeleteAlbum, adminDeleteArtist };
