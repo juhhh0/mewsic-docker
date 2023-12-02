@@ -8,8 +8,9 @@ export default function PlaylistDeleteBtn({playlist, user}) {
         if (!user) {
             return;
           }
-          await fetch_delete({endpoint: `playlists/${playlist._id}`, user: user})
-          window.location = "/"
+          await fetch_delete({endpoint: `playlists/${playlist._id}`, user: user}).then(
+            window.location = "/"
+          )
     }
 
     return (

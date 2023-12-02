@@ -42,8 +42,8 @@ const getPlaylistTrackByTitleSQL = async (title, user) => {
   return rows;
 }
 
-const getPlaylistByTitleSQL = async (title) => {
-  const [rows] = await pool.query("SELECT _id FROM playlists WHERE title = ?", [title])
+const getPlaylistByTitleSQL = async (title, user) => {
+  const [rows] = await pool.query("SELECT _id FROM playlists WHERE title = ? AND user_id = ?", [title, user])
 
   return rows[0]
 }

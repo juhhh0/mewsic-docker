@@ -4,6 +4,16 @@ const createPlaylist = async (req, res) => {
     const { title } = req.body;
     const user = req.user;
 
+    const isPlaylistExist = await getPlaylistByTitleSQL(title, user)
+    
+    if(!title){
+        return res.status(400).json({error: "playlist title can't be empty"})
+    }
+
+    if(isPlaylistExist){
+        return res.status(400).json({error: "playlist already exist"})
+    }
+
     try{
         const playlist = await createPlaylistSQL(title, user)
         res.status(200).json(playlist)
@@ -52,7 +62,7 @@ const getPlaylistTracks = async (req, res) => {
     // console.log(user, title)
 
     try{
-        const id = await getPlaylistByTitleSQL(title)
+        const id = await getPlaylistByTitleSQL(title, user)
         const tracks = await getPlaylistTrackByTitleSQL(title, user)
         return res.status(200).json({tracks: tracks, playlist: id})
     }catch(error){
@@ -63,7 +73,6 @@ const getPlaylistTracks = async (req, res) => {
 const deletePlaylist = async (req, res) => {
     const {id} = req.params
 
-    console.log("suprrimer plalist", id)
     try{
         await deleteAllPlaylistsTracksSQL(id)
         await deletePlaylistSQL(id)

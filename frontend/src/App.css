@@ -274,7 +274,8 @@ p.profile_input {
 
 .flex-end{
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
+  flex-direction: column;
 }
 
 .home_promote > img {
