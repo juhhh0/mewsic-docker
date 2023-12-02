@@ -49,11 +49,14 @@ export default function Contact() {
   };
   return (
     <form className="container flex-column bg-grey" action="">
+      <h2>Contact Admin</h2>
+      <p>If you have any troubles or question, feel free to ask !</p>
+      <p>We will reply as soon as possible on your email.</p>
       <input
         type="text"
         name="subject"
         placeholder="subject"
-        className="input"
+        className="input contact"
         onChange={handleOnChange}
       />
       <textarea
@@ -61,7 +64,7 @@ export default function Contact() {
         cols="30"
         rows="10"
         name="message"
-        className="input"
+        className="input contact"
         placeholder="your message"
         onChange={handleOnChange}
       ></textarea>

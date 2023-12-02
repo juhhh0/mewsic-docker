@@ -7,6 +7,7 @@ import TrackList from "../components/TrackList";
 import UserList from "../components/UserList.jsx";
 import Playlists from "../components/Playlists/Playlists.jsx";
 import PlaylistDeleteBtn from "../components/Playlists/PlaylistDeleteBtn.jsx";
+import Button from "../components/Button/Button.jsx";
 
 function Home() {
   const [playlist, setPlaylist] = useState({});
@@ -72,6 +73,12 @@ function Home() {
         {state.type == "search" && <UserList users={users} />}
         {state.type != "upload" && playlist?.length > 0 && (
           <TrackList playlist={playlist} user_playlists={userPlaylists} />
+        )}
+        {state.type != "upload" && playlist?.length == 0 && (
+          <>
+          <h3 style={{textAlign: "center", padding: "10px"}}>it's empty there, upload your first track</h3>
+          <Button variant={"center"} label={"Upload"} onClick={() => {setState({type: "upload", query: ""})}}/>
+          </>
         )}
         {state.type == "upload" && <UploadForm />}
       </section>

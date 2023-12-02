@@ -1,8 +1,7 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import GoogleIcon from "../GoogleIcon";
 import "./Playlists.css";
 import { UserContext } from "../../contexts/userContext";
-import { fetch_get } from "../../utils/utils";
 import { PlayerContext } from "../../contexts/playerContext";
 import { AppContext } from "../../contexts/appContext";
 import { useState } from "react";
@@ -62,6 +61,9 @@ export default function Playlists(){
             setPlayer(event, playlist)
           }}>{playlist.title}<span className="playlists_span">{playlist.tracks.length} <GoogleIcon type="play_circle"/></span></li>
           ))}
+          {userPlaylists.length == 0 && (
+            <h3 style={{textAlign: "center", padding: "10px"}}>no playlist yet, let's add some !</h3>
+          )}
         </ul>
         <div className="flex-end">
           <span className="playlist_new"><input ref={input} className="input transparent" placeholder="new playlist"/> <GoogleIcon type="add" onClick={handleNewPlaylist} /> </span>

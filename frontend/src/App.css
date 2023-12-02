@@ -87,6 +87,9 @@ footer {
   gap: 10px;
 }
 
+textarea{
+  min-height: 300px;
+}
 .input {
   padding: 5px;
   color: currentColor;
@@ -94,6 +97,10 @@ footer {
   border: #666e78 1px solid;
   border-radius: 5px;
   height: 40px;
+}
+
+.input.contact{
+  min-width: 300px;
 }
 
 .input.transparent{
@@ -197,6 +204,7 @@ label {
   border: 1px solid grey;
   padding: 5px;
   border-radius: 100%;
+  object-fit: cover;
 }
 
 .profile_img.default {

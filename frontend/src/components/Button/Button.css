@@ -15,6 +15,10 @@
   padding: 0;
 }
 
+.btn.center{
+  margin: auto;
+}
+
 .btn.black {
   background-color: transparent;
   border: 1px solid #1e2630;
