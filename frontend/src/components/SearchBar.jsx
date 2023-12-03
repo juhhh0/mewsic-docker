@@ -28,7 +28,7 @@ export default function SearchBar() {
   return (
     <input
       type="text"
-      placeholder="Search for Tracks, Users"
+      placeholder="Search for yours tracks"
       className="search_bar"
       onChange={handleChange}
     />

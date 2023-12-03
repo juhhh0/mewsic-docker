@@ -73,10 +73,10 @@ function Home() {
         {state.type != "upload" && playlist?.length > 0 && (
           <TrackList playlist={playlist} user_playlists={userPlaylists} />
         )}
-        {state.type != "upload" && playlist?.length == 0 && (
+        {(state.type != "upload") && playlist?.length == 0 && (
           <>
-          <h3 style={{textAlign: "center", padding: "10px"}}>it's empty there, upload your first track</h3>
-          <Button variant={"center"} label={"Upload"} onClick={() => {setState({type: "upload", query: ""})}}/>
+          <h3 style={{textAlign: "center", padding: "10px"}}>{state.type == "search" ? "No Results for your search" : "it's empty there, upload your first track"}</h3>
+          {state.type != "search" && <Button variant={"center"} label={"Upload"} onClick={() => {setState({type: "upload", query: ""})}}/>}
           </>
         )}
         {state.type == "upload" && <UploadForm />}

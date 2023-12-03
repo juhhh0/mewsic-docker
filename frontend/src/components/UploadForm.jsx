@@ -41,6 +41,19 @@ export default function UploadForm() {
     } else {
       value = e?.target.value;
     }
+    
+    if(name === "album"){
+      let isRegisteredAlbum = false
+     for (let i = 0; i < albums.length; i++) {
+      if(albums[i].label == e?.target.value){
+        isRegisteredAlbum = true
+        setCover(albums[i].cover)
+      }
+     }
+     if(!isRegisteredAlbum){
+      setCover("")
+     }
+    }
     setData({ ...data, [name]: value });
   };
 
@@ -205,8 +218,9 @@ export default function UploadForm() {
               type="file"
               accept="image/*"
               name="cover"
+              disabled={cover}
               id="cover"
-              className={"inputfile"}
+              className={`inputfile ${cover ? "disabled" : ""}`}
             />
             <label htmlFor="cover">Cover</label>
 

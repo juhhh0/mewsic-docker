@@ -107,6 +107,12 @@ textarea{
   height: 70px;
 }
 
+.inputfile.disabled + label{
+  border: var(--slate) 1px solid;
+  color: var(--slate);
+  cursor: initial;
+}
+
 .inputfile {
 	width: 0.1px;
 	height: 0.1px;
