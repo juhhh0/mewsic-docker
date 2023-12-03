@@ -1,6 +1,6 @@
-export default function GoogleIcon({ type, onClick, variant }) {
+export default function GoogleIcon({ type, onClick, variant, tabIndex }) {
   return (
-    <span onClick={onClick} className={`material-symbols-outlined ${variant}`}>
+    <span tabIndex={tabIndex ? "0" : false} onClick={onClick} className={`material-symbols-outlined ${variant}`}>
       {type}
     </span>
   );

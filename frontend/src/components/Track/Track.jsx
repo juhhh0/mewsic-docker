@@ -115,6 +115,7 @@ function Track({ track, i, playlist, user_playlists }) {
         setPlaylist(playlist);
         setPlaying(true);
       }}
+      tabIndex={"0"}
     >
       <img
         src={track.cover_album || track.cover || "/matcap.png"}

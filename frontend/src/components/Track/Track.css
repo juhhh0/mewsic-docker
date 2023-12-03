@@ -19,6 +19,12 @@
   border-radius: 5px;
 }
 
+.track:focus{
+  z-index: 2;
+  outline: 1px auto Highlight;
+  outline: 1px auto -webkit-focus-ring-color;
+}
+
 .track > audio {
   margin-left: 100px;
 }

@@ -57,7 +57,7 @@ export default function Playlists(){
         <h2>Playlists</h2>
         <ul className="playlists_list">
           {userPlaylists && userPlaylists.map((playlist, i) => (
-          <li className="playlists_item" key={i} onClick={() => {
+          <li className="playlists_item" tabIndex={"0"} key={i} onClick={() => {
             setPlayer(event, playlist)
           }}>{playlist.title}<span className="playlists_span">{playlist.tracks.length} <GoogleIcon type="play_circle"/></span></li>
           ))}

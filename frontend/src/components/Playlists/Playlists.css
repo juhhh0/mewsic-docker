@@ -7,6 +7,7 @@
     max-height: 200px;
     border: 1px solid var(--slate);
     border-radius: 5px;
+    padding: 2px;
     overflow: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -31,6 +32,10 @@
       rgba(30, 38, 48, 1) 70%,
       #74808600 100%
     );
+  }
+
+  .playlists_item:focus{
+    z-index: 2;
   }
   
   .playlists_item:hover > .playlists_span{

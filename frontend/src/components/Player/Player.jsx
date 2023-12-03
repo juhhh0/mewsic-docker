@@ -2,6 +2,7 @@ import { useState, useRef, useContext } from "react";
 import "./Player.css";
 import { PlayerContext } from "../../contexts/playerContext.jsx";
 import GoogleIcon from "../GoogleIcon";
+import { useEffect } from "react";
 
 function Player() {
   const {
@@ -35,6 +36,9 @@ function Player() {
   };
 
   const nextAudio = () => {
+    if (!playing) {
+      setPlaying(true);
+    }
     if (random) {
       const random = Math.round(Math.random() * playlist.length);
       setCurrent(random);
@@ -47,19 +51,24 @@ function Player() {
   };
 
   const prevAudio = () => {
+    if (!playing) {
+      setPlaying(true);
+    }
     current == 0 ? setCurrent(playlist.length - 1) : setCurrent(current - 1);
   };
 
   const toggleRandom = () => {
-    setRandom(!random);
+    setLoop(false)
+    setRandom((prev) => !prev);
   };
 
   const toggleLoop = () => {
-    setLoop(!loop);
+    setRandom(false)
+    setLoop((prev) => !prev);
   };
 
   const toggleAudio = () => {
-    setPlaying(!playing);
+    setPlaying((prev) => !prev);
     audio.current.paused ? audio.current.play() : audio.current.pause();
   };
 
@@ -67,6 +76,20 @@ function Player() {
     setStateVolum(q);
     audio.current.volume = q;
   };
+
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.keyCode == "32") {
+        toggleAudio();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
 
   if (playlist != null && playlist[current] != null) {
     if (playlist.length > 0) {
@@ -112,17 +135,28 @@ function Player() {
                   type="repeat"
                   variant={loop && "active"}
                   onClick={toggleLoop}
+                  tabIndex={true}
                 />
-                <GoogleIcon type="skip_previous" onClick={prevAudio} />
+                <GoogleIcon
+                  type="skip_previous"
+                  tabIndex={true}
+                  onClick={prevAudio}
+                />
                 <GoogleIcon
                   type={playing ? "pause" : "play_arrow"}
                   onClick={toggleAudio}
+                  tabIndex={true}
                 />
-                <GoogleIcon type="skip_next" onClick={nextAudio} />
+                <GoogleIcon
+                  tabIndex={true}
+                  type="skip_next"
+                  onClick={nextAudio}
+                />
                 <GoogleIcon
                   type="shuffle"
                   variant={random && "active"}
                   onClick={toggleRandom}
+                  tabIndex={true}
                 />
               </div>
               <div className="flex">
@@ -187,6 +221,7 @@ function Player() {
                 }}
                 className="material-symbols-outlined"
                 ref={openPlayerIcon}
+                tabIndex={"0"}
               >
                 play_arrow
               </span>
@@ -197,14 +232,25 @@ function Player() {
                   type="repeat"
                   variant={loop && "active"}
                   onClick={toggleLoop}
+                  tabIndex={true}
                 />
-                <GoogleIcon type="skip_previous" onClick={prevAudio} />
                 <GoogleIcon
+                  tabIndex={true}
+                  type="skip_previous"
+                  onClick={prevAudio}
+                />
+                <GoogleIcon
+                  tabIndex={true}
                   type={playing ? "pause" : "play_arrow"}
                   onClick={toggleAudio}
                 />
-                <GoogleIcon onClick={nextAudio} type="skip_next" />
                 <GoogleIcon
+                  onClick={nextAudio}
+                  type="skip_next"
+                  tabIndex={true}
+                />
+                <GoogleIcon
+                  tabIndex={true}
                   type="shuffle"
                   variant={random && "active"}
                   onClick={toggleRandom}
