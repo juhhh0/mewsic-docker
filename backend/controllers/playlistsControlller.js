@@ -4,6 +4,10 @@ const createPlaylist = async (req, res) => {
     const { title } = req.body;
     const user = req.user;
 
+    if(title.length >= 50){
+        return res.status(400).json({error: "title too long, max 50 chars"})
+    }
+
     const isPlaylistExist = await getPlaylistByTitleSQL(title, user)
     
     if(!title){
@@ -58,8 +62,6 @@ const addTrackPlaylist = async (req, res) => {
 const getPlaylistTracks = async (req, res) => {
     const {title} = req.params;
     const user = req.user;
-
-    // console.log(user, title)
 
     try{
         const id = await getPlaylistByTitleSQL(title, user)
