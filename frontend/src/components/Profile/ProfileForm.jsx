@@ -55,7 +55,7 @@ export default function ProfileForm({ profile }) {
         <img
           src={avatar || profile.avatar || logo}
           className={`profile_img ${!avatar && !profile.avatar && "default"}`}
-          alt=""
+          alt={`${profile.pseudo}'s avatar`}
         />
         {updateState && (
           <>

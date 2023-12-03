@@ -126,6 +126,7 @@ function Track({ track, i, playlist, user_playlists }) {
           objectFit: "cover",
         }}
         className={isPlaying && playing ? "spin" : ""}
+        alt={`${track.title}'s cover`}
       />
       <div>
         <h4 className="cut">{track.title}</h4>

@@ -9,7 +9,6 @@ import {
   deleteTrackSQL,
   deleteUserTrackSQL,
   getTrackSQL,
-  getUsersTracksSQL,
   togglePublicTrackSQL,
   isLikedSQL,
   likeSQL,
@@ -71,6 +70,7 @@ const createTrack = async (req, res) => {
     );
   }
 
+  // Check empty fields
   let emptyFields = [];
 
   if (!title) {
@@ -88,7 +88,30 @@ const createTrack = async (req, res) => {
   if (emptyFields.length > 0) {
     return res.status(400).json({
       error: "Please fill in all the fields",
-      emptyFields,
+      fields: emptyFields,
+    });
+  }
+
+  // Check Fields too long
+
+  let tooLongFields = [];
+
+  if(title.length >= 50 ){
+    tooLongFields.push("title")
+  }
+
+  if(album.length >= 50 ){
+    tooLongFields.push("album")
+  }
+
+  if(artist.length >= 50 ){
+    tooLongFields.push("artist")
+  }
+
+  if(tooLongFields.length > 0){
+    return res.status(400).json({
+      error: "Some fields are too long, max 50 chars",
+      fields: tooLongFields,
     });
   }
 

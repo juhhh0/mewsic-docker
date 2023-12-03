@@ -31,8 +31,6 @@ export default function Playlists(){
           );     
           const data = await res.json()
 
-          console.log(data)
-
           if(res.ok){
             refetch()
           }else {

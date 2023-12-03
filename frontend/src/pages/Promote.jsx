@@ -12,7 +12,7 @@ export default function Promote() {
             <ButtonLink href="/signup" label="Sign up" />
           </div>
         </div>
-        <img src="/promote.webp" alt="" />
+        <img src="/promote.webp" alt="mewsic banner image" />
       </article>
       <article className="home_promote">
         <h2>

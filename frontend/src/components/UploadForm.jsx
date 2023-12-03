@@ -6,9 +6,10 @@ import { fetch_get } from "../utils/utils.js";
 
 export default function UploadForm() {
   const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState();
+  const [errorFields, setErrorFields] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [succes, setSucces] = useState(false);
+  const [audioName, setAudioName] = useState("")
 
   const [data, setData] = useState({
     title: "",
@@ -33,11 +34,14 @@ export default function UploadForm() {
       if (name === "cover") {
         setPreview(e?.target.files[0]);
       }
+
+      if(name === "audio"){
+        setAudioName(e?.target.files[0].name)
+      }
     } else {
       value = e?.target.value;
     }
     setData({ ...data, [name]: value });
-    console.log(data);
   };
 
   const onAutoComplete = (name) => (e, newValue) => {
@@ -98,7 +102,7 @@ export default function UploadForm() {
 
     if (!res.ok) {
       setError(json.error);
-      setEmptyFields(json.emptyFields);
+      setErrorFields(json.fields)
       setIsLoading(false);
       setSucces(false);
     }
@@ -113,7 +117,7 @@ export default function UploadForm() {
       });
       setSucces(true);
       setError(null);
-      setEmptyFields([]);
+      setErrorFields([]);
       setIsLoading(false);
       refresh_after_timer()
     }
@@ -143,7 +147,7 @@ export default function UploadForm() {
               type="text"
               name="title"
               className={
-                emptyFields?.includes("title") ? "input error" : "input"
+                errorFields?.includes("title") ? "input error" : "input"
               }
             />
           </div>
@@ -164,7 +168,7 @@ export default function UploadForm() {
                     type="text"
                     {...params.inputProps}
                     className={
-                       "input"
+                      errorFields?.includes("artist") ? "input error" : "input"
                     }
                   />
                 </div>
@@ -186,7 +190,7 @@ export default function UploadForm() {
                   type="text"
                   {...params.inputProps}
                   className={
-                   "input"
+                    errorFields?.includes("album") ? "input error" : "input"
                   }
                 />
               </div>
@@ -196,28 +200,31 @@ export default function UploadForm() {
 
         <div className="flex-column">
           <div>
-            <label>Cover</label>
             <input
               onChange={handleChange("cover")}
               type="file"
               accept="image/*"
               name="cover"
-              className={"input"}
+              id="cover"
+              className={"inputfile"}
             />
+            <label htmlFor="cover">Cover</label>
+
           </div>
 
           <div>
-            <label>Audio</label>
             <input
               onChange={handleChange("audio")}
               type="file"
               accept="audio/*"
               name="audio"
-              className={emptyFields?.includes("audio") ? "input error" : "input"}
+              id="audio"
+              className={errorFields?.includes("audio") ? "inputfile error" : "inputfile"}
             />
+            <label htmlFor="audio">{audioName.slice(0, 36) || "Audio"}</label>
           </div>
         </div>
-        {cover && <img style={{ width: "100px" }} src={cover} alt="" />}
+        {cover && <img style={{ width: "100px" }} src={cover} alt="cover preview" />}
       </section>
       <Button
         type="submit"

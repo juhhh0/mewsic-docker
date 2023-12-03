@@ -22,7 +22,6 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log(state)
     const fetch = async () => {
       if (state.type == "all") {
         const data = await fetch_get(`tracks`, user);

@@ -89,14 +89,33 @@ footer {
 textarea{
   min-height: 300px;
 }
-.input {
+.input, .inputfile + label {
   padding: 5px;
   color: currentColor;
   background-color: transparent;
   border: #666e78 1px solid;
   border-radius: 5px;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.inputfile + label{
+  cursor: pointer;
+  width: 151px;
+  height: 70px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
 
 .input.contact{
   min-width: 300px;
@@ -127,7 +146,7 @@ textarea{
   background-color: #0d1117;
 }
 
-input.error {
+input.error, .inputfile.error + label {
   border: 1px solid var(--red);
 }
 

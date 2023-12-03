@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 function Player() {
   const {
+    state,
     playlist,
     current,
     setCurrent,
@@ -79,7 +80,7 @@ function Player() {
 
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.keyCode == "32") {
+      if (e.keyCode == "32" && state.type != "upload") {
         toggleAudio();
       }
     };
@@ -112,7 +113,7 @@ function Player() {
                   playlist[current]?.cover ||
                   "/matcap.png"
                 }
-                alt=""
+                alt={`${playlist[current]?.title}'s cover`}
                 style={{ width: "100px", height: "100px", objectFit: "cover" }}
               />
 
@@ -197,7 +198,7 @@ function Player() {
                   playlist[current]?.cover ||
                   "/matcap.png"
                 }
-                alt=""
+                alt={`${playlist[current]?.title}'s cover`}
                 style={{ width: "80px", height: "80px", objectFit: "cover" }}
               />
               <div>
