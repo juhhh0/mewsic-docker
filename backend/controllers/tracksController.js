@@ -63,6 +63,29 @@ const createTrack = async (req, res) => {
     );
   }
 
+  // Check invalid chars
+
+  let invalidChars = []
+
+  if(title.includes("?" || "%")){
+    invalidChars.push("title")
+  }
+
+  if(artist.includes("?" || "%")){
+    invalidChars.push("artist")
+  }
+
+  if(album.includes("?" || "%")){
+    invalidChars.push("album")
+  }
+
+  if (invalidChars.length > 0) {
+    return res.status(400).json({
+      error: "Invalid characters: ?, %",
+      fields: invalidChars,
+    });
+  }
+
   // Check empty fields
   let emptyFields = [];
 

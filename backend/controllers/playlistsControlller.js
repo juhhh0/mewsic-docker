@@ -1,8 +1,12 @@
-import { createPlaylistSQL, getUserPlaylistsSQL, addTrackPlaylistSQL, getPlaylistTrackByTitleSQL, deleteTrackPlaylistSQL, getPlaylistTracksSQL, getPlaylistByTitleSQL, deleteAllPlaylistsTracksSQL, deletePlaylistSQL } from "../utils/sql/playlistsSQL.js";
+import { createPlaylistSQL, getUserPlaylistsSQL, addTrackPlaylistSQL, getPlaylistTrackByTitleSQL, deleteTrackPlaylistSQL, getPlaylistTracksSQL, getPlaylistByTitleSQL, deleteAllPlaylistsTracksSQL, deletePlaylistSQL, updatePlaylistTitleSQL } from "../utils/sql/playlistsSQL.js";
 
 const createPlaylist = async (req, res) => {
     const { title } = req.body;
     const user = req.user;
+
+    if(title.includes("?" || "%")){
+        return res.status(400).json({error: "invalid chars: ?, %"})
+    }
 
     if(title.length >= 50){
         return res.status(400).json({error: "title too long, max 50 chars"})
@@ -63,6 +67,8 @@ const getPlaylistTracks = async (req, res) => {
     const {title} = req.params;
     const user = req.user;
 
+    console.log(title)
+
     try{
         const id = await getPlaylistByTitleSQL(title, user)
         const tracks = await getPlaylistTrackByTitleSQL(title, user)
@@ -85,7 +91,40 @@ const deletePlaylist = async (req, res) => {
     }
 }
 
+const updatePlaylist = async (req, res) => {
+    const {title} = req.body
+    const {id} = req.params
+    const user = req.user
+
+    const isPlaylistExist = await getPlaylistByTitleSQL(title, user)
+
+    if(!title){
+        return res.status(400).json({error: "Playlist's title can't be empty"})
+    }
+
+    if(title.includes("?" || "%")){
+        return res.status(400).json({error: "invalid chars: ?, %"})
+    }
+
+    if(title.length >= 50){
+        return res.status(400).json({error: "Title too long, max 50 chars"})
+    }
+
+    if(isPlaylistExist){
+        return res.status(400).json({error: "A playlist with this title already exist"})
+    }
+
+    try{
+        await updatePlaylistTitleSQL(title, id)
+
+        return res.status(200).json({message: "playlist updated"})
+    }catch(err){
+        return res.status(500)
+    }
+}
+
 export {
+    updatePlaylist,
     createPlaylist,
     getUserPlaylists,
     addTrackPlaylist,

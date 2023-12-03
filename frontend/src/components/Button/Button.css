@@ -46,9 +46,6 @@
 
 .btn.delete_playlist {
   background-color: var(--darkred);
-  position: absolute;
-  right: 30px;
-  top: 30px;
 }
 
 .btn.red_icon > span {

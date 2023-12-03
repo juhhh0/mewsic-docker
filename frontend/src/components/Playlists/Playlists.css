@@ -64,3 +64,18 @@
   .playlist_new:hover{
     color: var(--white)
   }
+
+  .playlists_options_btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    left: -250px;
+    top: -5px;
+    visibility: hidden;
+  }
+
+  .playlists_options_btns.open{
+    visibility: visible;
+  }

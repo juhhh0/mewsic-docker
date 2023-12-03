@@ -201,6 +201,25 @@ label {
   color: var(--green);
 }
 
+.top_track_list{
+  display: flex;
+  justify-content: space-between;
+}
+
+.top_track_list > input{
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Kanit";
+}
+
+.top_track_list > input:not(:disabled){
+ border: var(--slate) 1px solid;
+}
+
+.top_track_list > input::placeholder{
+color: var(--white);
+}
+
 .search_bar {
   width: 40vw;
   padding: 9px 10px 9px 40px;

@@ -49,6 +49,7 @@ const getPlaylistTrackByTitleSQL = async (title, user) => {
 };
 
 const getPlaylistByTitleSQL = async (title, user) => {
+  console.log(title)
   const [rows] = await pool.query(
     "SELECT _id FROM playlists WHERE title = ? AND user_id = ?",
     [title, user]
@@ -75,6 +76,12 @@ const createPlaylistSQL = async (title, user) => {
 
   return getPlaylistSQL(id);
 };
+
+const updatePlaylistTitleSQL = async (title, id) => {
+  await pool.query(
+    "UPDATE playlists SET title = ? WHERE _id = ?", [title, id]
+  )
+}
 
 const addTrackPlaylistSQL = async (track, playlist) => {
   await pool.query(
@@ -120,6 +127,7 @@ export {
   getPlaylistSQL,
   getPlaylistByTitleSQL,
   createPlaylistSQL,
+  updatePlaylistTitleSQL,
   getUserPlaylistsSQL,
   addTrackPlaylistSQL,
   getPlaylistTracksSQL,

@@ -6,8 +6,8 @@ import { fetch_get } from "../utils/utils";
 import TrackList from "../components/TrackList";
 import UserList from "../components/UserList.jsx";
 import Playlists from "../components/Playlists/Playlists.jsx";
-import PlaylistDeleteBtn from "../components/Playlists/PlaylistDeleteBtn.jsx";
 import Button from "../components/Button/Button.jsx";
+import TopTrackList from "../components/TopTrackList.jsx";
 
 function Home() {
   const [playlist, setPlaylist] = useState({});
@@ -67,8 +67,7 @@ function Home() {
       <section
         className={`container ${state.type == "upload" && "flex-column"}`}
       >
-        <h2>{state.type == "all" ? "All" : state.query}</h2>
-        {state.type == "playlist" && <PlaylistDeleteBtn playlist={currentPlaylist} user={user}/>}
+        <TopTrackList playlist={currentPlaylist} user={user} state={state}/>
         {state.type == "search" && <UserList users={users} />}
         {state.type != "upload" && playlist?.length > 0 && (
           <TrackList playlist={playlist} user_playlists={userPlaylists} />
