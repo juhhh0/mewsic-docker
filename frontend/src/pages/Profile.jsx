@@ -8,7 +8,6 @@ import ProfileForm from "../components/Profile/ProfileForm";
 export default function Profile() {
   const { id } = useParams();
   const [profile, setProfile] = useState([]);
-  const [playlist, setPlaylist] = useState([]);
   const { state, setState } = useContext(PlayerContext);
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +20,6 @@ export default function Profile() {
       try {
         const data = await fetch_get(`users/profile/${id}`);
         setProfile(data.profile);
-        setPlaylist(data.publicTracks);
         setLoading(false);
       } catch {
         setLoading(false);
@@ -41,11 +39,7 @@ export default function Profile() {
 
   return (
     <section className="container bg-grey">
-      {profile && <ProfileForm profile={profile} />}
-      <section>
-        <h2>Tracks</h2>
-        {playlist?.length > 0 && <TrackList playlist={playlist} />}
-      </section>
+      {profile && <ProfileForm profile={profile} />} 
     </section>
   );
 }
