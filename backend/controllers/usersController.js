@@ -22,7 +22,6 @@ import {
   updateAvatarSQL,
   getUserAvatarIdSQL,
 } from "../utils/sql/usersSQL.js";
-import { getPublicTracksSQL } from "../utils/sql/tracksSQL.js";
 import cloudinary from "../utils/cloudinary.js";
 import createTemplate from "../utils/utils.js";
 
@@ -329,10 +328,9 @@ const getProfile = async (req, res) => {
   const { id } = req.params;
 
   const profile = await getProfileSQL(id);
-  const publicTracks = await getPublicTracksSQL(id);
 
   if (profile) {
-    return res.status(200).json({ profile, publicTracks });
+    return res.status(200).json({ profile });
   } else {
     return res.status(404).json({ error: "Profile Not Found" });
   }

@@ -41,21 +41,13 @@ CREATE TABLE tracks (
      audio_cloudinary_id VARCHAR(255) NOT NULL,
      artist_id INT,
      album_id INT,
-     public BOOLEAN NOT NULL DEFAULT 0,
      cover VARCHAR(255),
      cover_cloudinary_id VARCHAR(255),
-     owner_id INT NOT NULL,
+     user_id INT NOT NULL,
      PRIMARY KEY (_id),
      FOREIGN KEY (artist_id) REFERENCES artists(_id),
      FOREIGN KEY (album_id) REFERENCES albums(_id),
-     FOREIGN KEY (owner_id) REFERENCES users(_id)
-);
-
-CREATE TABLE users_tracks(
-     user_id INT,
-     track_id INT,
-     FOREIGN KEY (user_id) REFERENCES users(_id),
-     FOREIGN KEY (track_id) REFERENCES tracks(_id)
+     FOREIGN KEY (user_id) REFERENCES users(_id)
 );
 
 CREATE TABLE playlists (

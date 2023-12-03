@@ -12,7 +12,6 @@ function Track({ track, i, playlist, user_playlists }) {
   const audio = useRef(null);
   const [optOpen, setOptOpen] = useState(false);
   const [visibility, setVisibility] = useState(track.public);
-  const [liked, setLiked] = useState(false);
   const [loadingPublic, setLoadingPublic] = useState(false);
   const [sure, setSure] = useState(false);
   const {
@@ -35,28 +34,7 @@ function Track({ track, i, playlist, user_playlists }) {
     }
 
     await fetch_delete({endpoint: `tracks/${track._id}`, user: user})
-    // window.location.reload();
-  };
-
-  const togglePublic = async () => {
-    setLoadingPublic(true);
-    await fetch_post({ endpoint: `tracks/${track._id}`, user: user });
-
-    setLoadingPublic(false);
-    setVisibility(!visibility);
-
-    if (visibility) {
-      window.location.reload();
-    }
-  };
-
-  const likeTrack = async () => {
-    await fetch_post({ endpoint: `tracks/like/${track._id}`, user: user });
-    setLiked(!liked);
-
-    if (!liked) {
-      window.location.reload();
-    }
+    window.location.reload();
   };
 
   const getArtist = (e) => {
@@ -95,18 +73,7 @@ function Track({ track, i, playlist, user_playlists }) {
       document.removeEventListener("mouseover", closeMenu);
     };
   });
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await fetch_get(`tracks/liked/${track._id}`, user);
-      setLiked(data);
-    };
-
-    if (!isOwner) {
-      fetch();
-    }
-  }, []);
-
-  const isOwner = user.id === track.owner_id;
+  
   return (
     <article
       className={"track " + (isPlaying && playing ? "playing" : "")}
@@ -171,9 +138,7 @@ function Track({ track, i, playlist, user_playlists }) {
           >
             more_vert
           </span>
-          <ul className={`dropdown ${optOpen && "open"} ${!isOwner && "solo"}`}>
-            {isOwner && (
-              <>
+          <ul className={`dropdown ${optOpen && "open"}`}>
                 <li>
                   <Button
                     onClick={(event) => {
@@ -189,33 +154,6 @@ function Track({ track, i, playlist, user_playlists }) {
                     icon="delete"
                   />
                 </li>
-                {/* <li>
-                  <Button
-                    label="Public"
-                    disabled={loadingPublic}
-                    variant="option"
-                    icon={visibility ? "visibility" : "visibility_off"}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      togglePublic();
-                    }}
-                  />
-                </li> */}
-              </>
-            )}
-            {!isOwner && (
-              <li>
-                <Button
-                  label={liked ? "Dislike" : "Like"}
-                  variant={`option`}
-                  icon={liked ? "heart_minus" : "favorite"}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    likeTrack();
-                  }}
-                />
-              </li>
-            )}
             {user && user_playlists && (
               <li>
                 <ul className="playlists_options_dropdown">

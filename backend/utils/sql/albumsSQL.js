@@ -4,9 +4,8 @@ const getAlbumsSQL = async (id) => {
   const [rows] = await pool.query(
     `
       SELECT a.title AS label, a.cover AS cover, ar.name AS artist FROM albums a
-      INNER JOIN tracks t ON t.album_id = a._id
+      INNER JOIN tracks t ON t.album_id = a._id AND t.user_id = ?
       LEFT JOIN artists ar ON ar._id = t.artist_id
-      INNER JOIN users_tracks ut ON ut.track_id = t._id AND ut.user_id = ?
       GROUP BY a.title, a.cover, ar.name
     `,
 

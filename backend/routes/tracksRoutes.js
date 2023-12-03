@@ -4,9 +4,6 @@ import {
   getTracksByAlbum,
   createTrack,
   deleteTrack,
-  togglePublicTrack,
-  isLiked,
-  likeTrack,
 } from "../controllers/tracksController.js";
 import {
   getUserAlbums,
@@ -34,11 +31,6 @@ router.post(
   ]),
   createTrack
 );
-
-router.get("/liked/:id", isLiked);
-router.post("/like/:id", likeTrack);
-
-router.post("/:id", togglePublicTrack);
 
 router.delete("/:id", deleteTrack);
 

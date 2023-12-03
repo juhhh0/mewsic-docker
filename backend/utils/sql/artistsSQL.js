@@ -4,8 +4,7 @@ const getArtistsSQL = async (id) => {
   const [rows] = await pool.query(
     `
       SELECT DISTINCT name AS label FROM artists a
-      INNER JOIN tracks t ON t.artist_id = a._id
-      INNER JOIN users_tracks ut ON ut.track_id = t._id AND ut.user_id = ?
+      INNER JOIN tracks t ON t.artist_id = a._id AND t.user_id = ?
     `,
     [id]
   );

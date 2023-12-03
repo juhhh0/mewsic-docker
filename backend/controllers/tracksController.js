@@ -5,15 +5,8 @@ import {
   getTracksAlbumByAlbumIdSQL,
   getTracksByAlbumSQL,
   getTracksSQL,
-  createUserTrackSQL,
   deleteTrackSQL,
-  deleteUserTrackSQL,
   getTrackSQL,
-  togglePublicTrackSQL,
-  isLikedSQL,
-  likeSQL,
-  dislikeSQL,
-  deleteUsersTracksByTrackSQL,
 } from "../utils/sql/tracksSQL.js";
 import {
   createArtistSQL,
@@ -158,9 +151,7 @@ const createTrack = async (req, res) => {
       id
     );
 
-    // User Track
-    await createUserTrackSQL(id, track?._id);
-
+    
     res.status(200).json(track);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -172,15 +163,9 @@ const deleteTrack = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await deleteUserTrackSQL(user_id, id);
-
-    // const otherUsersTracks = await getUsersTracksSQL(id);
-
     const track = await getTrackSQL(id);
 
-    await deleteUsersTracksByTrackSQL(id);
-
-    if (user_id === track.owner_id) {
+    if (user_id === track.user_id) {
       const artist_id = track.artist_id;
       const album_id = track.album_id;
 
@@ -224,51 +209,10 @@ const deleteTrack = async (req, res) => {
   }
 };
 
-const togglePublicTrack = async (req, res) => {
-  const { id } = req.params;
-  const user_id = req.user;
-
-  const track = await getTrackSQL(id);
-
-  const isOwner = user_id === track.owner_id;
-
-  if (isOwner) {
-    await togglePublicTrackSQL(id);
-  }
-  return res.status(200).json();
-};
-
-const isLiked = async (req, res) => {
-  const { id } = req.params;
-  const user = req.user;
-
-  const liked = await isLikedSQL(id, user);
-
-  return res.status(200).json(liked);
-};
-
-const likeTrack = async (req, res) => {
-  const { id } = req.params;
-  const user = req.user;
-
-  const liked = await isLikedSQL(id, user);
-
-  if (liked) {
-    await dislikeSQL(user, id);
-  } else {
-    await likeSQL(user, id);
-  }
-
-  return res.status(200).json();
-};
-
 export {
   getTracks,
   getTracksByArtist,
   getTracksByAlbum,
   createTrack,
   deleteTrack,
-  togglePublicTrack,
-  isLiked,
-  likeTrack,
 };

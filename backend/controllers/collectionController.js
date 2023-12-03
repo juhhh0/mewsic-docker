@@ -21,11 +21,11 @@ const getUserAlbums = async (req, res) => {
 
 const search = async (req, res) => {
   let { query } = req.params;
-  const { id } = req.user;
+  const id = req.user;
   query = `%${query}%`;
   const users = await searchUsersByPseudoSQL(query);
   const tracks = await searchTracksByTitleSQL(query, id);
-
+  
   res.status(200).json({ users, tracks });
 };
 

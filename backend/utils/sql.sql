@@ -27,7 +27,6 @@ TRUNCATE covers;
 TRUNCATE tracks;
 TRUNCATE tracks_albums;
 TRUNCATE tracks_artists;
-TRUNCATE users_tracks;
 
 SELECT * FROM albums;
 SELECT * FROM albums_artists;
@@ -37,7 +36,6 @@ SELECT * FROM covers;
 SELECT * FROM tracks;
 SELECT * FROM tracks_albums;
 SELECT * FROM tracks_artists;
-SELECT * FROM users_tracks;
 
 INSERT INTO tracks (title, artist, album, cover, audio, cover_cloudinary_id, audio_cloudinary_id, user_id) VALUES 
 ("Sunrise",
@@ -322,21 +320,14 @@ CREATE TABLE tracks (
      audio_cloudinary_id VARCHAR(255) NOT NULL,
      artist_id INT,
      album_id INT,
-     public BOOLEAN NOT NULL DEFAULT 0,
      cover VARCHAR(255),
      cover_cloudinary_id VARCHAR(255),
-     owner_id INT NOT NULL,
+     user_id INT NOT NULL,
      PRIMARY KEY (_id),
      FOREIGN KEY (artist_id) REFERENCES artists(_id),
      FOREIGN KEY (album_id) REFERENCES albums(_id)
 );
 
-CREATE TABLE users_tracks(
-     user_id INT,
-     track_id INT,
-     FOREIGN KEY (user_id) REFERENCES users(_id),
-     FOREIGN KEY (track_id) REFERENCES tracks(_id)
-);
 
 CREATE TABLE artists (
      _id INT NOT NULL AUTO_INCREMENT,

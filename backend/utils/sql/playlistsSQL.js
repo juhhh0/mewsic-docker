@@ -39,10 +39,10 @@ const getPlaylistTrackByTitleSQL = async (title, user) => {
   LEFT JOIN artists a ON a._id = tracks.artist_id 
   LEFT JOIN albums al ON al._id = tracks.album_id
   INNER JOIN playlists_tracks ON tracks._id = playlists_tracks.track_id
-  INNER JOIN users_tracks ON users_tracks.track_id = tracks._id AND users_tracks.user_id = ?
   INNER JOIN playlists ON playlists._id = playlists_tracks.playlist_id AND playlists.title = ?
+  WHERE tracks.user_id = ?
   `,
-    [user, title]
+    [title, user]
   );
 
   return rows;

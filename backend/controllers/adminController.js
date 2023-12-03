@@ -3,7 +3,6 @@ import { adminDeleteArtistSQL, getAllArtistsSQL } from "../utils/sql/artistsSQL.
 import {
   adminDeleteTrackSQL,
   getAllTracksSQL,
-  getAllUsersTracksSQL,
 } from "../utils/sql/tracksSQL.js";
 import { adminDeleteUserSQL, getAllUsersSQL, getUserSQL } from "../utils/sql/usersSQL.js";
 import createTemplate from "../utils/utils.js";
@@ -16,11 +15,10 @@ const getTables = async (req, res) => {
   const tracks = await getAllTracksSQL();
   const albums = await getAllAlbumsSQL();
   const artists = await getAllArtistsSQL();
-  const users_tracks = await getAllUsersTracksSQL();
   const playlists = await getAllPlaylistsSQL();
   const playlists_tracks = await getAllPlaylistsTracksSQL();
 
-  return res.status(200).json({ users, tracks, albums, artists, users_tracks, playlists, playlists_tracks });
+  return res.status(200).json({ users, tracks, albums, artists, playlists, playlists_tracks });
 };
 
 const contactAdmin = async (req, res) => {

@@ -3,12 +3,11 @@ import "./Admin.css";
 
 const fields = {
   users: ["_id", "pseudo", "email", "avatar", "verified", "role"],
-  tracks: ["_id", "title", "audio", "cover", "album_id", "artist_id", "public"],
+  tracks: ["_id", "title", "audio", "cover", "album_id", "artist_id", "user_id"],
   albums: ["_id", "title", "cover"],
   artists: ["_id", "name"],
   playlists: ["_id", "title", "user_id"],
   playlists_tracks: ["playlist_id", "track_id"],
-  users_tracks: ["user_id", "track_id"],
 };
 
 export default function AdminTable({ data, type }) {
