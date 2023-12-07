@@ -11,8 +11,6 @@ function Track({ track, i, playlist, user_playlists }) {
   const [duration, setDuration] = useState(0);
   const audio = useRef(null);
   const [optOpen, setOptOpen] = useState(false);
-  const [visibility, setVisibility] = useState(track.public);
-  const [loadingPublic, setLoadingPublic] = useState(false);
   const [sure, setSure] = useState(false);
   const {
     playlist: play,
@@ -33,7 +31,7 @@ function Track({ track, i, playlist, user_playlists }) {
       return;
     }
 
-    await fetch_delete({endpoint: `tracks/${track._id}`, user: user})
+    await fetch_delete({ endpoint: `tracks/${track._id}`, user: user });
     window.location.reload();
   };
 
@@ -73,7 +71,7 @@ function Track({ track, i, playlist, user_playlists }) {
       document.removeEventListener("mouseover", closeMenu);
     };
   });
-  
+
   return (
     <article
       className={"track " + (isPlaying && playing ? "playing" : "")}
@@ -138,28 +136,32 @@ function Track({ track, i, playlist, user_playlists }) {
           >
             more_vert
           </span>
-          <ul className={`dropdown ${optOpen && "open"}`}>
-                <li>
-                  <Button
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      if (sure) {
-                        handleDelete();
-                      } else {
-                        setSure(true);
-                      }
-                    }}
-                    label={sure ? "Sure delete" : "Delete"}
-                    variant="option red"
-                    icon="delete"
-                  />
-                </li>
-            {user && user_playlists && (
+          <ul className={`dropdown ${optOpen ? "open" : ""} ${user_playlists.length > 0 ? "" : "solo"}`}>
+            <li>
+              <Button
+                onClick={(event) => {
+                  event.stopPropagation();
+                  if (sure) {
+                    handleDelete();
+                  } else {
+                    setSure(true);
+                  }
+                }}
+                label={sure ? "Sure delete" : "Delete"}
+                variant="option red"
+                icon="delete"
+              />
+            </li>
+            {user && user_playlists.length > 0 && (
               <li>
                 <ul className="playlists_options_dropdown">
-                  {user_playlists.length &&
+                  {user_playlists.length > 0 &&
                     user_playlists.map((item, index) => (
-                      <PlaylistOptions track={track._id} key={index} item={item} />
+                      <PlaylistOptions
+                        track={track._id}
+                        key={index}
+                        item={item}
+                      />
                     ))}
                 </ul>
 

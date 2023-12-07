@@ -8,14 +8,16 @@ import UserList from "../components/UserList.jsx";
 import Playlists from "../components/Playlists/Playlists.jsx";
 import Button from "../components/Button/Button.jsx";
 import TopTrackList from "../components/TopTrackList.jsx";
+import { AppContext } from "../contexts/appContext.jsx";
 
 function Home() {
   const [playlist, setPlaylist] = useState({});
-  const [userPlaylists, setUserPlaylists] = useState({})
   const [users, setUsers] = useState({});
   const [currentPlaylist, setCurrentPlaylist] = useState()
   const { state, setState } = useContext(PlayerContext);
   const { user } = useContext(UserContext);
+
+  const {userPlaylists, setUserPlaylists} = useContext(AppContext)
 
   const backToAll = () => {
     setState({ type: "all", query: "" });
@@ -67,10 +69,12 @@ function Home() {
       <section
         className={`container ${state.type == "upload" && "flex-column"}`}
       >
-        <TopTrackList playlist={currentPlaylist} user={user} state={state}/>
+        {state.type != "upload" && <TopTrackList playlist={currentPlaylist} user={user} state={state}/>}
         {state.type == "search" && <UserList users={users} />}
         {state.type != "upload" && playlist?.length > 0 && (
-          <TrackList playlist={playlist} user_playlists={userPlaylists} />
+          <>
+            <TrackList playlist={playlist} user_playlists={userPlaylists} />
+          </>
         )}
         {(state.type != "upload") && playlist?.length == 0 && (
           <>

@@ -3,13 +3,16 @@ import { Autocomplete } from "@mui/material";
 import { UserContext } from "../contexts/userContext.jsx";
 import Button from "./Button/Button";
 import { fetch_get } from "../utils/utils.js";
+import { PlayerContext } from "../contexts/playerContext.jsx";
 
 export default function UploadForm() {
   const [error, setError] = useState(null);
   const [errorFields, setErrorFields] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [succes, setSucces] = useState(false);
-  const [audioName, setAudioName] = useState("")
+  const [audioName, setAudioName] = useState("");
+
+  const {setState} = useContext(PlayerContext)
 
   const [data, setData] = useState({
     title: "",
@@ -144,7 +147,7 @@ export default function UploadForm() {
 
   const refresh_after_timer = () => {
     setTimeout(() => {
-      window.location.reload();
+      setState({type: "all", query: ""})
     }, 2000);
   };
 

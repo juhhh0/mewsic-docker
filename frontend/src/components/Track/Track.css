@@ -61,11 +61,16 @@
   display: none;
   position: absolute;
   left: -220px;
-  bottom: -15px;
+  bottom: -10px;
   background-color: var(--grey);
   list-style: none;
   padding: 5px;
   border-radius: 5px;
+}
+
+.dropdown.solo{
+  left: -60px;
+  bottom: -10px;
 }
 
 .dropdown.open {
