@@ -151,6 +151,14 @@ textarea{
 .bg-grey {
   background-color: #0d1117;
 }
+.label-required{
+  color: var(--red);
+  right: -5px;
+  position: relative;
+}
+.label-required.left{
+  right: 2px;
+}
 
 input.error, .inputfile.error + label {
   border: 1px solid var(--red);

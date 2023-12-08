@@ -157,7 +157,7 @@ export default function UploadForm() {
       <section className="upload_form">
         <div className="flex-column">
           <div>
-            <label>Title</label>
+            <label>Title{!data.title && <span className="label-required">*</span>}</label>
             <input
               onChange={handleChange("title")}
               type="text"
@@ -219,7 +219,7 @@ export default function UploadForm() {
             <input
               onChange={handleChange("cover")}
               type="file"
-              accept="image/*"
+              accept=".png, .jpg, .jpeg, .webp"
               name="cover"
               disabled={cover}
               id="cover"
@@ -238,7 +238,7 @@ export default function UploadForm() {
               id="audio"
               className={errorFields?.includes("audio") ? "inputfile error" : "inputfile"}
             />
-            <label htmlFor="audio">{audioName.slice(0, 36) || "Audio"}</label>
+            <label htmlFor="audio">{audioName.slice(0, 36) || "Audio"}{!audioName && <span className='label-required'>*</span>}</label>
           </div>
         </div>
         {cover && <img style={{ width: "100px" }} src={cover} alt="cover preview" />}
@@ -250,6 +250,7 @@ export default function UploadForm() {
         onClick={handleSubmit}
         label={"Submit"}
       />
+      <p><span className='label-required left'>*</span> required fields</p>
       {error && <p className="error_msg">{error}</p>}
       {succes && <p className="succes_msg">Track Uploaded !</p>}
     </form>
