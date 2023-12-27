@@ -26,17 +26,14 @@ export default function Contact() {
     form.append("subject", formData.subject);
     form.append("message", formData.message);
 
-    const res = await fetch(
-      `${import.meta.env.VITE_URL}/api/admin/contact`,
-      {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const res = await fetch(`${import.meta.env.VITE_URL}/api/admin/contact`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     const data = await res.json();
 
     if (!data.succes) {
