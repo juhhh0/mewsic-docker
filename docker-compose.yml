@@ -4,9 +4,7 @@ services:
 
   mysql-db:
     image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: passpass
-      MYSQL_DATABASE: mewsic_sql
+    env_file: docker.env
     ports:
       - "3307:3306"
     volumes:
@@ -23,11 +21,7 @@ services:
     volumes:
       - ./backend:/usr/app 
       - /usr/app/node_modules 
-    environment:
-      DATABASE_USER: root
-      DATABASE: mewsic_sql
-      DATABASE_PASSWORD: passpass
-      DATABASE_HOST: mysql-db 
+    env_file: docker.env
       
 
   frontend:
