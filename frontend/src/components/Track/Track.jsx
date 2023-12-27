@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { PlayerContext } from "../../contexts/playerContext.jsx";
 import { UserContext } from "../../contexts/userContext.jsx";
 import Button from "../Button/Button";
-import { fetch_delete, fetch_get, fetch_post } from "../../utils/utils";
+import { fetch_delete } from "../../utils/utils";
 import PlaylistOptions from "./TrackOptions/PlaylistOptions.jsx";
 
 function Track({ track, i, playlist, user_playlists }) {

@@ -3,8 +3,8 @@
   --black: #010409;
   --slate: #1e2630;
   --lightslate: #2e3945;
-  --white: rgb(217, 217, 217);
-  --red: rgb(119, 0, 0);
-  --darkred: rgb(79, 0, 0);
+  --white: #f0f0f0;
+  --red: #770000;
+  --darkred: #4f0000;
   --green: green;
 }

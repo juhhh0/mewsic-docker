@@ -19,6 +19,7 @@ function Signup() {
     setIsLoading(true);
     const { email, password, pseudo } = formData;
 
+
     e.preventDefault();
     setError("");
     setMessage("");
