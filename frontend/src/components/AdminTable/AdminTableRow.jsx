@@ -28,7 +28,6 @@ export default function AdminTableRow({ data, fields, type }) {
         isModifiable && (
 
           <td>
-        <GoogleIcon type="edit" />
         <GoogleIcon type="delete" onClick={handleDelete} />
       </td>
       )}

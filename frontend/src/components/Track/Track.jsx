@@ -165,7 +165,7 @@ function Track({ track, i, playlist, user_playlists }) {
                     ))}
                 </ul>
 
-                <Button label="Add to playlist" variant="option" icon="add" />
+                <Button label="Playlists" variant="option" icon="add" />
               </li>
             )}
           </ul>
