@@ -121,7 +121,7 @@ const login = async (req, res) => {
   if (!user.verified) {
     const verificationToken = await getVerifTokenSQL(user._id);
 
-    if (!verificationToken) {
+    if (!verificationToken.verif_token) {
       let token = "";
       for (let i = 0; i < 4; i++) {
         const rand = Math.round(Math.random() * 9);
@@ -134,7 +134,7 @@ const login = async (req, res) => {
         file: "email_verify.html",
         params: {
           URL: process.env.URL,
-          token: verifToken,
+          token: token,
           id: user._id,
           pseudo: user.pseudo,
         },
@@ -155,7 +155,7 @@ const login = async (req, res) => {
     }
     return res.json({
       succes: false,
-      message: "An email his already sent to ur email to verify ur account",
+      error: "An email his already sent to ur email to verify ur account",
     });
   }
 

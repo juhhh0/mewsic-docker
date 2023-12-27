@@ -57,10 +57,9 @@ const getVerifTokenSQL = async (id) => {
 };
 
 const createVerifTokenSQL = async (id, token) => {
-  const now = Date.now();
   await pool.query(
-    "UPDATE users SET verif_token = ?, verif_token_created_at = ? WHERE _id = ?",
-    [token, now, id]
+    "UPDATE users SET verif_token = ? WHERE _id = ?",
+    [token, id]
   );
 };
 
@@ -81,10 +80,9 @@ const getResetTokenSQL = async (id) => {
 };
 
 const createResetTokenSQL = async (id, token) => {
-  const now = Date.now();
   await pool.query(
-    "UPDATE users SET reset_token = ?, reset_token_created_at = ? WHERE _id = ?",
-    [token, now, id]
+    "UPDATE users SET reset_token = ? WHERE _id = ?",
+    [token, id]
   );
 };
 
