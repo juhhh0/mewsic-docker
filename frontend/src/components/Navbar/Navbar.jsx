@@ -8,7 +8,7 @@ import { PlayerContext } from "../../contexts/playerContext.jsx";
 import Button from "../Button/Button";
 import ButtonLink from "../Button/ButtonLink";
 import GoogleIcon from "../GoogleIcon";
-import SearchBar from "../SearchBar";
+import SearchBar from "../Search/SearchBar";
 
 function Navbar() {
   const { state, setState } = useContext(PlayerContext);

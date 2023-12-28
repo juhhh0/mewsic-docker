@@ -27,6 +27,17 @@ const getAlbumByNameSQL = async (album) => {
   return rows[0];
 };
 
+const searchAlbumByTitleSQL = async (query, id) => {
+  const [rows] = await pool.query(
+    `SELECT a.*
+    FROM albums a  
+    INNER JOIN tracks t ON a._id = t.album_id AND t.user_id = ?
+    WHERE a.title LIKE ?`,
+    [id, query]
+  );
+  return rows;
+};
+
 const createAlbumSQL = async (album, url, cloudinary_id ) => {
   const [result] = await pool.query("INSERT INTO albums (title, cover, cover_cloudinary_id) VALUES (?, ?, ?)", [
     album,
@@ -70,4 +81,4 @@ const adminDeleteAlbumSQL = async (id) => {
   return album
 }
 
-export { adminDeleteAlbumSQL, getAlbumSQL, createAlbumSQL, getAlbumByNameSQL, getAlbumsSQL, getAlbumIdByTrackIdSQL, deleteAlbumSQL, getAllAlbumsSQL };
+export { adminDeleteAlbumSQL, getAlbumSQL, createAlbumSQL, getAlbumByNameSQL, getAlbumsSQL, getAlbumIdByTrackIdSQL, deleteAlbumSQL, getAllAlbumsSQL, searchAlbumByTitleSQL  };

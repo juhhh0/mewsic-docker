@@ -1,5 +1,5 @@
-import { getArtistsSQL } from "../utils/sql/artistsSQL.js";
-import { getAlbumsSQL } from "../utils/sql/albumsSQL.js";
+import { getArtistsSQL, searchArtistsByTitleSQL } from "../utils/sql/artistsSQL.js";
+import { getAlbumsSQL, searchAlbumByTitleSQL } from "../utils/sql/albumsSQL.js";
 import { searchUsersByPseudoSQL } from "../utils/sql/usersSQL.js";
 import { searchTracksByTitleSQL } from "../utils/sql/tracksSQL.js";
 
@@ -23,10 +23,11 @@ const search = async (req, res) => {
   let { query } = req.params;
   const id = req.user;
   query = `%${query}%`;
-  const users = await searchUsersByPseudoSQL(query);
   const tracks = await searchTracksByTitleSQL(query, id);
+  const albums = await searchAlbumByTitleSQL(query, id)
+  const artists = await searchArtistsByTitleSQL(query, id)
   
-  res.status(200).json({ users, tracks });
+  res.status(200).json({ tracks, albums, artists });
 };
 
 export { search, getUserArtists, getUserAlbums };

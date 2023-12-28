@@ -23,6 +23,17 @@ const getArtistByNameSQL = async (name) => {
   return rows[0];
 };
 
+const searchArtistsByTitleSQL = async (query, id) => {
+  const [rows] = await pool.query(
+    `SELECT a.*
+    FROM artists a  
+    INNER JOIN tracks t ON a._id = t.artist_id AND t.user_id = ?
+    WHERE a.name LIKE ?`,
+    [id, query]
+  );
+  return rows;
+};
+
 const createArtistSQL = async (artist) => {
   const [result] = await pool.query("INSERT INTO artists (name) VALUES (?)", [
     artist,
@@ -78,5 +89,6 @@ export {
   getArtistsSQL,
   getArtistIdByTrackIdSQL,
   deleteArtistSQL,
-  getAllArtistsSQL
+  getAllArtistsSQL,
+searchArtistsByTitleSQL 
 };

@@ -194,11 +194,19 @@ label {
   gap: 20px;
 }
 
-.user_list {
-  margin-top: 20px;
+.search_result > ul{
+  margin-top: 10px;
   display: flex;
-  justify-content: start;
+  gap: 25px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.search_result > ul > li {
+  display: flex;
+  align-items: center;
   gap: 15px;
+  cursor: pointer;
 }
 
 .error_msg{
@@ -226,6 +234,13 @@ label {
 
 .top_track_list > input::placeholder{
 color: var(--white);
+}
+
+.cover{
+  width: 50px;
+  border-radius: 50%;
+  height: 50px;
+  object-fit: cover;
 }
 
 .search_bar {

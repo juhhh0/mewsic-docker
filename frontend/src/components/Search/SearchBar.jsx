@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PlayerContext } from "../contexts/playerContext.jsx";
+import { PlayerContext } from "../../contexts/playerContext.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
@@ -12,7 +12,7 @@ export default function SearchBar() {
       navigate("/");
     }
 
-    if (e.target.value.length > 2) {
+    if (e.target.value.length > 1) {
       setState({
         type: "search",
         query: e.target.value,

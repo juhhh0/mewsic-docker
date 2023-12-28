@@ -84,13 +84,8 @@ function Track({ track, i, playlist, user_playlists }) {
     >
       <img
         src={track.cover_album || track.cover || "/matcap.png"}
-        style={{
-          width: "50px",
-          borderRadius: "50%",
-          height: "50px",
-          objectFit: "cover",
-        }}
-        className={isPlaying && playing ? "spin" : ""}
+        
+        className={isPlaying && playing ? "cover spin" : "cover"}
         alt={`${track.title}'s cover`}
       />
       <div>
