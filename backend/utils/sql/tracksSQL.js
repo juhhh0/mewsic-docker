@@ -99,7 +99,8 @@ const getTracksByAlbumSQL = async (user_id, album) => {
 };
 
 const deleteTrackSQL = async (track_id) => {
-  const [result] = await pool.query(`DELETE FROM tracks WHERE _id = ?`, [
+  await pool.query('DELETE FROM playlists_tracks WHERE track_id = ?', [track_id])
+  await pool.query(`DELETE FROM tracks WHERE _id = ?`, [
     track_id,
   ]);
 };
