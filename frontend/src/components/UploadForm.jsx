@@ -240,6 +240,7 @@ export default function UploadForm() {
             />
             <label htmlFor="audio">{audioName.slice(0, 36) || "Audio"}{!audioName && <span className='label-required'>*</span>}</label>
           </div>
+          <p>max file size: 50MB</p>
         </div>
         {cover && <img style={{ width: "100px" }} src={cover} alt="cover preview" />}
       </section>
