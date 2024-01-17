@@ -22,7 +22,9 @@ export default function TopTrackList({ playlist, user, state }) {
     await fetch_delete({
       endpoint: `playlists/${playlist._id}`,
       user: user,
-    }).then((window.location = "/"));
+    }).then(setTimeout(() => {
+      window.location = "/";
+    }, 2000));
   };
 
   const handleSubmit = async () => {
