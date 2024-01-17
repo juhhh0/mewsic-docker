@@ -386,6 +386,40 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  const { newPass, oldPass } = req.body;
+  const { id } = req.params;
+
+  const user = await getUserSQL(id);
+
+  const match = await bcrypt.compare(oldPass, user.password);
+
+  if (!match) {
+    return res.json({ succes: false, error: "incorrect password" });
+  }
+
+ if (
+    !validator.isStrongPassword(newPass, {
+      minSymbols: 0,
+      minLength: 8,
+      minUppercase: 0,
+    })
+  ) {
+    return res.json({ succes: false, error: "password not strong enough" });
+  }
+
+const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(newPass, salt);
+
+  try {
+    await updatePasswordSQL(id, hash);
+
+    return res.json({ succes: true, message: "password changed" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   signup,
   login,
@@ -395,4 +429,5 @@ export {
   resetPassword,
   getProfile,
   updateProfile,
+  changePassword,
 };

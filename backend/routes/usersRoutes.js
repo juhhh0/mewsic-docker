@@ -7,6 +7,7 @@ import {
   resetPassword,
   getProfile,
   updateProfile,
+  changePassword,
 } from "../controllers/usersController.js";
 import express from "express";
 import upload from "../utils/multer.js";
@@ -27,5 +28,6 @@ router.post(
   upload.fields([{ name: "avatar", maxCount: 1 }]),
   updateProfile
 );
+router.patch("/pass/:id", changePassword);
 
 export default router;
