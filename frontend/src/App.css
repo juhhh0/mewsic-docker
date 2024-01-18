@@ -399,6 +399,10 @@ p.profile_input {
   .home_promote > .container {
     padding: 30px;
   }
+
+  .upload_btn{
+    bottom: -60px;
+  }
 }
 
 @media screen and (max-width: 960px) {

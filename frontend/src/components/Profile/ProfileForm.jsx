@@ -154,7 +154,7 @@ export default function ProfileForm({ profile }) {
               </>
             )}
             <Button
-              label="Change password"
+              label="Change pwd"
               onClick={(event) => {
                 event.preventDefault();
                 setUpdateState(false);
