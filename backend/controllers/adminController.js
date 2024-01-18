@@ -18,6 +18,13 @@ const getTables = async (req, res) => {
   const playlists = await getAllPlaylistsSQL();
   const playlists_tracks = await getAllPlaylistsTracksSQL();
 
+  const user_id = req.user;
+  const user = await getUserSQL(user_id)
+
+  if(user.role != 1){
+    return res.status(401).json({error: "You must be admin to view the tables"})
+  }
+
   return res.status(200).json({ users, tracks, albums, artists, playlists, playlists_tracks });
 };
 
@@ -63,6 +70,13 @@ const contactAdmin = async (req, res) => {
 
 const adminDeleteUser = async (req, res) => {
   const {id} = req.params
+
+  const user_id = req.user;
+  const user = await getUserSQL(user_id)
+
+  if(user.role != 1){
+    return res.status(401).json({error: "You must be admin"})
+  }
 
   try{
     const mediaToDelete = await adminDeleteUserSQL(id)

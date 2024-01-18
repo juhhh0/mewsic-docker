@@ -26,7 +26,7 @@ import cloudinary from "../utils/cloudinary.js";
 import createTemplate from "../utils/utils.js";
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, "groudonkyogrerayquazaelecthorartikodinsulfura", {
+  return jwt.sign({ _id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
 };
@@ -67,11 +67,6 @@ const signup = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  let verifToken = "";
-  for (let i = 0; i < 4; i++) {
-    const rand = Math.round(Math.random() * 9);
-    verifToken = verifToken + rand;
-  }
 
   const user = await createUserSQL(email, hash, verifToken, pseudo);
 
@@ -398,7 +393,7 @@ const changePassword = async (req, res) => {
     return res.json({ succes: false, error: "incorrect password" });
   }
 
- if (
+  if (
     !validator.isStrongPassword(newPass, {
       minSymbols: 0,
       minLength: 8,
@@ -408,7 +403,7 @@ const changePassword = async (req, res) => {
     return res.json({ succes: false, error: "password not strong enough" });
   }
 
-const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(newPass, salt);
 
   try {
