@@ -67,6 +67,11 @@ const signup = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
+  let verifToken = "";
+  for (let i = 0; i < 4; i++) {
+    const rand = Math.round(Math.random() * 9);
+    verifToken = verifToken + rand;
+  }
 
   const user = await createUserSQL(email, hash, verifToken, pseudo);
 
