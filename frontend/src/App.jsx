@@ -16,6 +16,7 @@ import Admin from "./pages/Admin";
 import Footer from "./components/Footer.jsx";
 import Contact from "./pages/Contact.jsx";
 import Promote from "./pages/Promote";
+import Cgu from "./pages/CGU.jsx";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -70,6 +71,9 @@ function App() {
           <Route
             path="/forgot-password"
             element={!user ? <Forgot /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/cgu" element={<Cgu/>}  
           />
         </Routes>
         {user && <Player />}

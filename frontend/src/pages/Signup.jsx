@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button/Button";
 import { fetch_post } from "../utils/utils";
@@ -9,6 +9,7 @@ function Signup() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [succes, setSucces] = useState(false);
+  const cguCheckbox = useRef(null)
 
   const handleOnChange = ({ target }) => {
     const { name, value } = target;
@@ -16,11 +17,17 @@ function Signup() {
   };
 
   const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    if(!cguCheckbox.current.checked){
+      setIsLoading(false);
+      return setError("accept cgu");
+    }
+
     setIsLoading(true);
     const { email, password, pseudo } = formData;
 
-
-    e.preventDefault();
     setError("");
     setMessage("");
 
@@ -61,6 +68,11 @@ function Signup() {
         name="password"
         className="input"
       />
+
+      <div className="flex">
+        <label htmlFor="cgu" className={error == "accept cgu flex" ? "cguerror" : "flex"} style={{gap: "3px"}}>I accept the <Link target="_blank" to={"/cgu"} style={{textDecoration: "underline"}}>Terms of Service</Link></label>
+        <input className="cguInput" ref={cguCheckbox} type="checkbox" name="cgu"/>
+      </div>
 
       <Button
         type="submit"

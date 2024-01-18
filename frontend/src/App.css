@@ -371,6 +371,32 @@ p.profile_input {
   margin-bottom: 20px;
 }
 
+.cgu > h4{
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.cgu > h3{
+  font-size: 20px;
+  text-align: center;
+}
+
+.cgu > p{
+  font-size: 14px;
+  font-weight: thin;
+}
+
+.cguInput{
+  background-color: transparent;
+}
+
+.cguerror{
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--red);
+}
+
 @media screen and (min-width: 640px) {
   .search_bar {
     width: auto;
