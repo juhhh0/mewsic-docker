@@ -397,6 +397,13 @@ p.profile_input {
   text-decoration-color: var(--red);
 }
 
+footer > a{
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  
+}
+
+
 @media screen and (min-width: 640px) {
   .search_bar {
     width: auto;
@@ -429,6 +436,16 @@ p.profile_input {
   .upload_btn{
     bottom: -60px;
   }
+
+
+footer{
+  flex-direction: column;
+
+}
+
+footer > span {
+  display: none;
+}
 }
 
 @media screen and (max-width: 960px) {
